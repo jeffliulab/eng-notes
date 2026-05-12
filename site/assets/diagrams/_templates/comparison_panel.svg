@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Comparison Panel Template (taxonomy + side-by-side comparison)
+  示例: HMM 三个基本问题 (Evaluation/Decoding/Learning → Forward/Viterbi/Baum-Welch)
+  使用方法:
+    1. 改顶部标题 (中文 + 英文 italic 副标题)
+    2. 改根节点标签和公式
+    3. 改 3 个分支标签和卡片内容
+    4. 卡片左侧色条用 --dia-green / --dia-accent / --dia-blue 区分类别
+-->
+<svg viewBox="0 0 800 340" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="cp-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="var(--dia-stroke)"/>
+    </marker>
+  </defs>
+
+  <!-- ========== 标题 ========== -->
+  <text x="400" y="34" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="600" font-size="20"
+        fill="var(--dia-stroke)">主标题（替换为具体内容）</text>
+  <text x="400" y="56" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-style="italic" font-size="13"
+        fill="var(--dia-stroke-soft)">English subtitle</text>
+
+  <!-- ========== 根节点 (椭圆) ========== -->
+  <ellipse cx="400" cy="115" rx="92" ry="30"
+           fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <text x="400" y="111" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-style="italic" font-size="15"
+        fill="var(--dia-stroke)">根概念</text>
+  <text x="400" y="129" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="12"
+        fill="var(--dia-accent-deep)">公式 / 数学定义</text>
+
+  <!-- ========== 三条分支线 ========== -->
+  <line x1="350" y1="140" x2="190" y2="200"
+        stroke="var(--dia-stroke)" stroke-width="1.2" marker-end="url(#cp-arrow)"/>
+  <line x1="400" y1="146" x2="400" y2="200"
+        stroke="var(--dia-stroke)" stroke-width="1.2" marker-end="url(#cp-arrow)"/>
+  <line x1="450" y1="140" x2="610" y2="200"
+        stroke="var(--dia-stroke)" stroke-width="1.2" marker-end="url(#cp-arrow)"/>
+
+  <!-- 分支标签 (覆盖白底, italic) -->
+  <rect x="245" y="158" width="80" height="18" fill="var(--dia-bg)"/>
+  <text x="285" y="172" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-style="italic" font-size="13"
+        fill="var(--dia-accent)">分支 1</text>
+
+  <rect x="365" y="166" width="70" height="18" fill="var(--dia-bg)"/>
+  <text x="400" y="180" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-style="italic" font-size="13"
+        fill="var(--dia-accent)">分支 2</text>
+
+  <rect x="475" y="158" width="70" height="18" fill="var(--dia-bg)"/>
+  <text x="510" y="172" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-style="italic" font-size="13"
+        fill="var(--dia-accent)">分支 3</text>
+
+  <!-- ========== 卡片 1 (绿色色条) ========== -->
+  <rect x="90" y="205" width="200" height="98" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6" rx="3"/>
+  <rect x="90" y="205" width="3" height="98" fill="var(--dia-green)"/>
+  <text x="190" y="232" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="13"
+        fill="var(--dia-accent-deep)">公式 / 表达式</text>
+  <text x="190" y="261" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-weight="600" font-size="16"
+        fill="var(--dia-stroke)">类别名 1</text>
+  <text x="190" y="282" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-style="italic" font-size="12"
+        fill="var(--dia-stroke-soft)">中文说明 — English note</text>
+
+  <!-- ========== 卡片 2 (terracotta 色条) ========== -->
+  <rect x="300" y="205" width="200" height="98" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6" rx="3"/>
+  <rect x="300" y="205" width="3" height="98" fill="var(--dia-accent)"/>
+  <text x="400" y="232" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="13"
+        fill="var(--dia-accent-deep)">公式 / 表达式</text>
+  <text x="400" y="261" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-weight="600" font-size="16"
+        fill="var(--dia-stroke)">类别名 2</text>
+  <text x="400" y="282" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-style="italic" font-size="12"
+        fill="var(--dia-stroke-soft)">中文说明 — English note</text>
+
+  <!-- ========== 卡片 3 (蓝色色条) ========== -->
+  <rect x="510" y="205" width="200" height="98" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6" rx="3"/>
+  <rect x="510" y="205" width="3" height="98" fill="var(--dia-blue)"/>
+  <text x="610" y="232" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="13"
+        fill="var(--dia-accent-deep)">公式 / 表达式</text>
+  <text x="610" y="261" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-weight="600" font-size="16"
+        fill="var(--dia-stroke)">类别名 3</text>
+  <text x="610" y="282" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-style="italic" font-size="12"
+        fill="var(--dia-stroke-soft)">中文说明 — English note</text>
+</svg>

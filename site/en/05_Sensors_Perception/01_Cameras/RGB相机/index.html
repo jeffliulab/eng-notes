@@ -1,0 +1,2510 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jeffliulab.github.io/eng-notes/en/05_Sensors_Perception/01_Cameras/RGB%E7%9B%B8%E6%9C%BA/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="../../../../05_Sensors_Perception/01_Cameras/RGB%E7%9B%B8%E6%9C%BA/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>RGB Cameras - Engineering Notes — 计算机工程与机器人工程</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../site_extra_styles/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rgb-cameras" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../" title="Engineering Notes — 计算机工程与机器人工程" class="md-header__button md-logo" aria-label="Engineering Notes — 计算机工程与机器人工程" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Engineering Notes — 计算机工程与机器人工程
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              RGB Cameras
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../../05_Sensors_Perception/01_Cameras/RGB%E7%9B%B8%E6%9C%BA/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jeffliulab/eng-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jeffliulab/eng-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_Foundations/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  工程基础
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../02_Computer_Engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  计算机工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../01_Electrical_Engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  电气工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../04_Mechanical_Engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  机械工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../03_Embedded_Systems/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  嵌入式系统
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  传感器与感知
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../06_Actuators_Motors/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  执行器与电机
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../07_Power_Energy/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  电源与能源
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../08_Communication_Networks/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  通信与网络
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../09_Control_HMI/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  控制与人机交互
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../10_Robot_Integration/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  机器人集成
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../11_Manufacturing_Frontiers/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  制造与前沿
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../" title="Engineering Notes — 计算机工程与机器人工程" class="md-nav__button md-logo" aria-label="Engineering Notes — 计算机工程与机器人工程" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Engineering Notes — 计算机工程与机器人工程
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jeffliulab/eng-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jeffliulab/eng-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../00_Foundations/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程基础
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工程基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../02_Computer_Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../01_Electrical_Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电气工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    电气工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../04_Mechanical_Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机械工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机械工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../03_Embedded_Systems/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    嵌入式系统
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    嵌入式系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    传感器与感知
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    传感器与感知
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../06_Actuators_Motors/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    执行器与电机
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    执行器与电机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../07_Power_Energy/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电源与能源
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    电源与能源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../08_Communication_Networks/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通信与网络
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    通信与网络
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../09_Control_HMI/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    控制与人机交互
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    控制与人机交互
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../10_Robot_Integration/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器人集成
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机器人集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_13" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../11_Manufacturing_Frontiers/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    制造与前沿
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    制造与前沿
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmos-sensor-fundamentals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CMOS Sensor Fundamentals
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CMOS Sensor Fundamentals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#working-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working Principle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bayer-color-filter-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bayer Color Filter Array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rolling-shutter-vs-global-shutter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rolling Shutter vs. Global Shutter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-rgb-cameras-in-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common RGB Cameras in Detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common RGB Cameras in Detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#imx219-raspberry-pi-camera-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IMX219 (Raspberry Pi Camera V2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imx477-raspberry-pi-hq-camera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IMX477 (Raspberry Pi HQ Camera)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usb-cameras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USB Cameras
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="USB Cameras">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logitech-c920" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logitech C920
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elp-usb-camera-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ELP USB Camera Modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arducam-camera-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arducam Camera Series
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csi-vs-usb-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CSI vs. USB Comparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-quality-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Quality Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Quality Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signal-to-noise-ratio-snr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signal-to-Noise Ratio (SNR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-range" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dynamic Range
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-image-problems-and-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Image Problems and Solutions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#camera-parameter-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Camera Parameter Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Camera Parameter Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#manual-exposure-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Exposure Control
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetson-csi-camera-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jetson CSI Camera Control
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-camera-specifications-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Camera Specifications Comparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="rgb-cameras">RGB Cameras<a class="headerlink" href="#rgb-cameras" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>RGB cameras are the most basic and commonly used visual sensors in robotics. From inexpensive USB webcams to high-performance industrial cameras, RGB cameras provide 2D color image data for object detection, recognition, tracking, and other vision tasks.</p>
+<h2 id="cmos-sensor-fundamentals">CMOS Sensor Fundamentals<a class="headerlink" href="#cmos-sensor-fundamentals" title="Permanent link">&para;</a></h2>
+<h3 id="working-principle">Working Principle<a class="headerlink" href="#working-principle" title="Permanent link">&para;</a></h3>
+<p>Each pixel of a CMOS image sensor contains a photodiode and associated circuitry:</p>
+<ol>
+<li><strong>Photoelectric conversion</strong>: Photons striking the photodiode generate electrons</li>
+<li><strong>Charge accumulation</strong>: Charge accumulates during the exposure period</li>
+<li><strong>Charge readout</strong>: Transistors convert charge to voltage</li>
+<li><strong>ADC conversion</strong>: Analog voltage is converted to digital values</li>
+</ol>
+<h3 id="bayer-color-filter-array">Bayer Color Filter Array<a class="headerlink" href="#bayer-color-filter-array" title="Permanent link">&para;</a></h3>
+<p>Since each pixel can only sense one color, CMOS sensors use a Bayer color filter array:</p>
+<div class="highlight"><pre><span></span><code>Bayer Pattern (RGGB):
++---+---+---+---+
+| R | G | R | G |
++---+---+---+---+
+| G | B | G | B |
++---+---+---+---+
+| R | G | R | G |
++---+---+---+---+
+| G | B | G | B |
++---+---+---+---+
+Green pixels account for 50% (human eyes are most sensitive to green)
+</code></pre></div>
+<p><strong>Demosaicing</strong>: Interpolation algorithms recover full-color RGB images from raw Bayer data.</p>
+<div class="arithmatex">\[
+\text{Effective Resolution} \approx 0.7 \times \text{Sensor Resolution}
+\]</div>
+<h3 id="rolling-shutter-vs-global-shutter">Rolling Shutter vs. Global Shutter<a class="headerlink" href="#rolling-shutter-vs-global-shutter" title="Permanent link">&para;</a></h3>
+<p><strong>Rolling Shutter</strong>:</p>
+<div class="highlight"><pre><span></span><code>Time -&gt;
+Row 0: [====Exposure====][Readout]
+Row 1:   [====Exposure====][Readout]
+Row 2:     [====Exposure====][Readout]
+Row 3:       [====Exposure====][Readout]
+  |
+Different rows are exposed at different times; moving objects are distorted
+</code></pre></div>
+<p><strong>Global Shutter</strong>:</p>
+<div class="highlight"><pre><span></span><code>Time -&gt;
+Row 0: [====Exposure====][Readout    ]
+Row 1: [====Exposure====][  Readout  ]
+Row 2: [====Exposure====][    Readout]
+Row 3: [====Exposure====][      Readout]
+  |
+All rows are exposed simultaneously; no motion distortion
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Shutter Type</th>
+<th>Resolution</th>
+<th>Pixel Size</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IMX219</td>
+<td>Rolling</td>
+<td>8MP</td>
+<td>1.12um</td>
+<td>RPi Camera V2</td>
+</tr>
+<tr>
+<td>IMX477</td>
+<td>Rolling</td>
+<td>12.3MP</td>
+<td>1.55um</td>
+<td>RPi HQ Camera</td>
+</tr>
+<tr>
+<td>IMX296</td>
+<td>Global</td>
+<td>1.58MP</td>
+<td>3.45um</td>
+<td>Industrial vision, VIO</td>
+</tr>
+<tr>
+<td>OV9281</td>
+<td>Global</td>
+<td>1MP</td>
+<td>3.0um</td>
+<td>Visual odometry</td>
+</tr>
+<tr>
+<td>IMX462</td>
+<td>Rolling</td>
+<td>2.1MP</td>
+<td>2.9um</td>
+<td>Night vision (starlight grade)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-rgb-cameras-in-detail">Common RGB Cameras in Detail<a class="headerlink" href="#common-rgb-cameras-in-detail" title="Permanent link">&para;</a></h2>
+<h3 id="imx219-raspberry-pi-camera-v2">IMX219 (Raspberry Pi Camera V2)<a class="headerlink" href="#imx219-raspberry-pi-camera-v2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sensor</td>
+<td>Sony IMX219</td>
+</tr>
+<tr>
+<td>Resolution</td>
+<td>3280 x 2464 (8MP)</td>
+</tr>
+<tr>
+<td>Pixel Size</td>
+<td>1.12um x 1.12um</td>
+</tr>
+<tr>
+<td>Sensor Size</td>
+<td>1/4" (3.68 x 2.76mm)</td>
+</tr>
+<tr>
+<td>Shutter</td>
+<td>Rolling shutter</td>
+</tr>
+<tr>
+<td>Interface</td>
+<td>CSI-2 (2 lanes)</td>
+</tr>
+<tr>
+<td>Frame Rate</td>
+<td>8MP@15fps, 1080p@30fps, 720p@60fps</td>
+</tr>
+<tr>
+<td>FOV</td>
+<td>62.2 x 48.8 degrees</td>
+</tr>
+<tr>
+<td>Focal Length</td>
+<td>3.04mm (fixed focus)</td>
+</tr>
+<tr>
+<td>Aperture</td>
+<td>f/2.0</td>
+</tr>
+<tr>
+<td>Price</td>
+<td>~$25</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Suitable scenarios</strong>: Education, lightweight vision, low-cost robot prototypes.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using libcamera on Raspberry Pi / Jetson</span>
+libcamera-still<span class="w"> </span>-o<span class="w"> </span>test.jpg<span class="w"> </span>--width<span class="w"> </span><span class="m">1920</span><span class="w"> </span>--height<span class="w"> </span><span class="m">1080</span>
+
+<span class="c1"># Using GStreamer for capture</span>
+gst-launch-1.0<span class="w"> </span>nvarguscamerasrc<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">&#39;video/x-raw(memory:NVMM), width=1920, height=1080, framerate=30/1&#39;</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>nvvidconv<span class="w"> </span>!<span class="w"> </span>videoconvert<span class="w"> </span>!<span class="w"> </span>autovideosink
+</code></pre></div>
+<h3 id="imx477-raspberry-pi-hq-camera">IMX477 (Raspberry Pi HQ Camera)<a class="headerlink" href="#imx477-raspberry-pi-hq-camera" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sensor</td>
+<td>Sony IMX477</td>
+</tr>
+<tr>
+<td>Resolution</td>
+<td>4056 x 3040 (12.3MP)</td>
+</tr>
+<tr>
+<td>Pixel Size</td>
+<td>1.55um x 1.55um</td>
+</tr>
+<tr>
+<td>Sensor Size</td>
+<td>1/2.3" (6.29 x 4.71mm)</td>
+</tr>
+<tr>
+<td>Shutter</td>
+<td>Rolling shutter</td>
+</tr>
+<tr>
+<td>Interface</td>
+<td>CSI-2 (2 lanes)</td>
+</tr>
+<tr>
+<td>Frame Rate</td>
+<td>12.3MP@10fps, 1080p@50fps</td>
+</tr>
+<tr>
+<td>Lens Mount</td>
+<td>C/CS-mount (interchangeable lenses)</td>
+</tr>
+<tr>
+<td>Price</td>
+<td>~$50</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Advantage</strong>: Interchangeable lenses, suitable for scenarios requiring different focal lengths.</p>
+<table>
+<thead>
+<tr>
+<th>Companion Lens</th>
+<th>Focal Length</th>
+<th>FOV</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wide-angle lens</td>
+<td>6mm</td>
+<td>63 degrees</td>
+<td>Navigation, SLAM</td>
+</tr>
+<tr>
+<td>Telephoto lens</td>
+<td>16mm</td>
+<td>24 degrees</td>
+<td>Long-range recognition</td>
+</tr>
+<tr>
+<td>Fisheye lens</td>
+<td>2.5mm</td>
+<td>140 degrees</td>
+<td>Panoramic perception</td>
+</tr>
+</tbody>
+</table>
+<h3 id="usb-cameras">USB Cameras<a class="headerlink" href="#usb-cameras" title="Permanent link">&para;</a></h3>
+<h4 id="logitech-c920">Logitech C920<a class="headerlink" href="#logitech-c920" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Resolution</td>
+<td>1080p @30fps</td>
+</tr>
+<tr>
+<td>Encoding</td>
+<td>H.264 hardware encoding</td>
+</tr>
+<tr>
+<td>Interface</td>
+<td>USB 2.0</td>
+</tr>
+<tr>
+<td>FOV</td>
+<td>78 degrees</td>
+</tr>
+<tr>
+<td>Autofocus</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Microphone</td>
+<td>Dual stereo microphones</td>
+</tr>
+<tr>
+<td>Price</td>
+<td>~$60</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1"># OpenCV reading USB camera</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_WIDTH</span><span class="p">,</span> <span class="mi">1920</span><span class="p">)</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_HEIGHT</span><span class="p">,</span> <span class="mi">1080</span><span class="p">)</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FPS</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="c1"># Disable autofocus (SLAM requires fixed focus)</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_AUTOFOCUS</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FOCUS</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Focus to infinity</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Camera&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span>
+</code></pre></div>
+<h4 id="elp-usb-camera-modules">ELP USB Camera Modules<a class="headerlink" href="#elp-usb-camera-modules" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Sensor</th>
+<th>Resolution</th>
+<th>Shutter</th>
+<th>FOV</th>
+<th>Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ELP-USB8MP</td>
+<td>IMX179</td>
+<td>8MP</td>
+<td>Rolling</td>
+<td>75 degrees</td>
+<td>$30</td>
+</tr>
+<tr>
+<td>ELP-USBFHD01M</td>
+<td>AR0230</td>
+<td>1080p</td>
+<td>Rolling</td>
+<td>100 degrees</td>
+<td>$35</td>
+</tr>
+<tr>
+<td>ELP-USB1MP</td>
+<td>OV9281</td>
+<td>1MP</td>
+<td>Global</td>
+<td>70 degrees</td>
+<td>$40</td>
+</tr>
+</tbody>
+</table>
+<h3 id="arducam-camera-series">Arducam Camera Series<a class="headerlink" href="#arducam-camera-series" title="Permanent link">&para;</a></h3>
+<p>Arducam offers various embedded camera solutions:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Sensor</th>
+<th>Interface</th>
+<th>Highlight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arducam IMX219</td>
+<td>IMX219</td>
+<td>CSI</td>
+<td>RPi compatible, multiple FOV options</td>
+</tr>
+<tr>
+<td>Arducam IMX477</td>
+<td>IMX477</td>
+<td>CSI</td>
+<td>M12 lens mount</td>
+</tr>
+<tr>
+<td>Arducam OV9281</td>
+<td>OV9281</td>
+<td>CSI/USB</td>
+<td>Global shutter, preferred for VIO</td>
+</tr>
+<tr>
+<td>Arducam Stereo</td>
+<td>IMX219x2</td>
+<td>CSI</td>
+<td>Stereo camera module</td>
+</tr>
+</tbody>
+</table>
+<h2 id="csi-vs-usb-comparison">CSI vs. USB Comparison<a class="headerlink" href="#csi-vs-usb-comparison" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>CSI-2</th>
+<th>USB 2.0</th>
+<th>USB 3.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bandwidth</td>
+<td>2.5Gbps/lane x4 = 10Gbps</td>
+<td>480Mbps</td>
+<td>5Gbps</td>
+</tr>
+<tr>
+<td>Latency</td>
+<td>&lt;1ms</td>
+<td>~30ms</td>
+<td>~10ms</td>
+</tr>
+<tr>
+<td>CPU Usage</td>
+<td>Very low (ISP hardware)</td>
+<td>Medium (software decoding)</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Cable Length</td>
+<td>&lt;30cm (FPC ribbon)</td>
+<td>&lt;5m</td>
+<td>&lt;3m</td>
+</tr>
+<tr>
+<td>Plug-and-Play</td>
+<td>No (requires adaptation)</td>
+<td>Yes (UVC standard)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Multi-Camera</td>
+<td>One per CSI port</td>
+<td>Multiple via Hub</td>
+<td>Multiple via Hub</td>
+</tr>
+<tr>
+<td>Programming API</td>
+<td>libargus / nvarguscamerasrc</td>
+<td>V4L2 / OpenCV</td>
+<td>V4L2 / OpenCV</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Selection Advice</p>
+<ul>
+<li><strong>CSI</strong>: Fixed installations requiring low latency and high frame rate (e.g., SLAM)</li>
+<li><strong>USB</strong>: Scenarios requiring flexibility, plug-and-play, and long cables</li>
+</ul>
+</div>
+<h2 id="image-quality-parameters">Image Quality Parameters<a class="headerlink" href="#image-quality-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="signal-to-noise-ratio-snr">Signal-to-Noise Ratio (SNR)<a class="headerlink" href="#signal-to-noise-ratio-snr" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\text{SNR} = 20 \log_{10}\frac{S}{N} \quad \text{(dB)}
+\]</div>
+<p>Where <span class="arithmatex">\(S\)</span> is the signal level and <span class="arithmatex">\(N\)</span> is the noise level.</p>
+<p>Influencing factors:</p>
+<ul>
+<li><strong>Pixel size</strong>: Larger pixels -&gt; higher SNR (more photons per pixel)</li>
+<li><strong>Exposure time</strong>: Longer exposure -&gt; higher SNR (but may cause motion blur)</li>
+<li><strong>ISO/Gain</strong>: Higher gain -&gt; lower SNR (noise is amplified)</li>
+</ul>
+<h3 id="dynamic-range">Dynamic Range<a class="headerlink" href="#dynamic-range" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\text{Dynamic Range} = 20 \log_{10}\frac{V_{\text{sat}}}{V_{\text{noise}}} \quad \text{(dB)}
+\]</div>
+<table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Dynamic Range</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard CMOS</td>
+<td>~60dB</td>
+<td>Sufficient indoors</td>
+</tr>
+<tr>
+<td>HDR Sensor</td>
+<td>~100dB</td>
+<td>Outdoor bright/dark contrast</td>
+</tr>
+<tr>
+<td>Human Eye</td>
+<td>~120dB</td>
+<td>Reference</td>
+</tr>
+</tbody>
+</table>
+<h3 id="common-image-problems-and-solutions">Common Image Problems and Solutions<a class="headerlink" href="#common-image-problems-and-solutions" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Motion blur</td>
+<td>Exposure time too long</td>
+<td>Shorten exposure, use global shutter</td>
+</tr>
+<tr>
+<td>Noise</td>
+<td>Low light, high gain</td>
+<td>Denoising algorithms, larger pixel sensor</td>
+</tr>
+<tr>
+<td>Over/under exposure</td>
+<td>Inaccurate auto-exposure</td>
+<td>Manual exposure, HDR</td>
+</tr>
+<tr>
+<td>Color deviation</td>
+<td>Inaccurate white balance</td>
+<td>Manual white balance, color correction</td>
+</tr>
+<tr>
+<td>Lens distortion</td>
+<td>Wide-angle lens</td>
+<td>Calibration + undistortion</td>
+</tr>
+<tr>
+<td>Unstable frame rate</td>
+<td>Insufficient USB bandwidth</td>
+<td>Lower resolution, switch to CSI</td>
+</tr>
+</tbody>
+</table>
+<h2 id="camera-parameter-configuration">Camera Parameter Configuration<a class="headerlink" href="#camera-parameter-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="manual-exposure-control">Manual Exposure Control<a class="headerlink" href="#manual-exposure-control" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Disable auto exposure</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_AUTO_EXPOSURE</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 1=manual, 3=auto</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_EXPOSURE</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">)</span>       <span class="c1"># Exposure value (log scale)</span>
+
+<span class="c1"># Disable auto white balance</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_AUTO_WB</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_WB_TEMPERATURE</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>  <span class="c1"># Color temperature 5000K</span>
+
+<span class="c1"># Set gain</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_GAIN</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Minimum gain</span>
+</code></pre></div>
+<h3 id="jetson-csi-camera-control">Jetson CSI Camera Control<a class="headerlink" href="#jetson-csi-camera-control" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># GStreamer pipeline for Jetson with manual exposure</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+
+<span class="n">gst_str</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;nvarguscamerasrc sensor-id=0 &#39;</span>
+    <span class="s1">&#39;exposuretimerange=&quot;5000000 10000000&quot; &#39;</span>  <span class="c1"># 5-10ms exposure</span>
+    <span class="s1">&#39;gainrange=&quot;1.0 2.0&quot; &#39;</span>                    <span class="c1"># Gain range</span>
+    <span class="s1">&#39;ispdigitalgainrange=&quot;1 1&quot; &#39;</span>              <span class="c1"># Digital gain</span>
+    <span class="s1">&#39;wbmode=0 &#39;</span>                               <span class="c1"># Manual white balance</span>
+    <span class="s1">&#39;! video/x-raw(memory:NVMM), &#39;</span>
+    <span class="s1">&#39;width=1920, height=1080, &#39;</span>
+    <span class="s1">&#39;format=NV12, framerate=30/1 &#39;</span>
+    <span class="s1">&#39;! nvvidconv &#39;</span>
+    <span class="s1">&#39;! video/x-raw, format=BGRx &#39;</span>
+    <span class="s1">&#39;! videoconvert &#39;</span>
+    <span class="s1">&#39;! video/x-raw, format=BGR &#39;</span>
+    <span class="s1">&#39;! appsink&#39;</span>
+<span class="p">)</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">gst_str</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CAP_GSTREAMER</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="common-camera-specifications-comparison">Common Camera Specifications Comparison<a class="headerlink" href="#common-camera-specifications-comparison" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Camera</th>
+<th>Sensor</th>
+<th>Resolution</th>
+<th>Shutter</th>
+<th>Interface</th>
+<th>FOV</th>
+<th>FPS</th>
+<th>Price</th>
+<th>Recommended Scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RPi Camera V2</td>
+<td>IMX219</td>
+<td>8MP</td>
+<td>Rolling</td>
+<td>CSI</td>
+<td>62 degrees</td>
+<td>1080p@30</td>
+<td>$25</td>
+<td>Education/entry</td>
+</tr>
+<tr>
+<td>RPi HQ Camera</td>
+<td>IMX477</td>
+<td>12.3MP</td>
+<td>Rolling</td>
+<td>CSI</td>
+<td>Interchangeable</td>
+<td>1080p@50</td>
+<td>$50</td>
+<td>Multi-purpose</td>
+</tr>
+<tr>
+<td>Logitech C920</td>
+<td>-</td>
+<td>2MP</td>
+<td>Rolling</td>
+<td>USB2.0</td>
+<td>78 degrees</td>
+<td>1080p@30</td>
+<td>$60</td>
+<td>General use</td>
+</tr>
+<tr>
+<td>Arducam OV9281</td>
+<td>OV9281</td>
+<td>1MP</td>
+<td>Global</td>
+<td>CSI/USB</td>
+<td>70 degrees</td>
+<td>720p@120</td>
+<td>$40</td>
+<td>VIO/SLAM</td>
+</tr>
+<tr>
+<td>ELP AR0230</td>
+<td>AR0230</td>
+<td>2MP</td>
+<td>Rolling</td>
+<td>USB</td>
+<td>100 degrees</td>
+<td>1080p@30</td>
+<td>$35</td>
+<td>Wide-angle navigation</td>
+</tr>
+<tr>
+<td>FLIR BFS</td>
+<td>IMX264</td>
+<td>5MP</td>
+<td>Global</td>
+<td>USB3.0</td>
+<td>Interchangeable</td>
+<td>5MP@24</td>
+<td>$500</td>
+<td>Industrial vision</td>
+</tr>
+</tbody>
+</table>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>CMOS sensors</strong> acquire color images through Bayer color filter arrays</li>
+<li><strong>Global shutter</strong> eliminates motion distortion and is critical for VIO and SLAM</li>
+<li><strong>Pixel size</strong> directly affects low-light performance and SNR</li>
+<li><strong>CSI interface</strong> has the lowest latency and does not burden the CPU, ideal for embedded systems</li>
+<li><strong>USB cameras</strong> are convenient and flexible, suitable for rapid prototyping</li>
+<li>Select appropriate resolution, frame rate, and lens based on task requirements</li>
+</ol>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Sony Semiconductor Solutions: IMX Series Datasheets</li>
+<li>Raspberry Pi Camera Documentation: <a href="https://www.raspberrypi.com/documentation/accessories/camera.html">https://www.raspberrypi.com/documentation/accessories/camera.html</a></li>
+<li>V4L2 API Documentation: <a href="https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/v4l2.html">https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/v4l2.html</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

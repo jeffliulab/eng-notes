@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Architecture Block Template (Transformer / CNN / ResNet block)
+  示例: Transformer Encoder Block (Self-Attention + FFN)
+  使用方法:
+    1. 改输入/输出 label
+    2. 改 block 内部组件 (rect + text)
+    3. 残差连接用虚线表示
+    4. 主路径用 stroke=stroke,虚线用 stroke-dasharray="4,3"
+-->
+<svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arch-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="var(--dia-stroke)"/>
+    </marker>
+  </defs>
+
+  <!-- ========== Input box (顶部) ========== -->
+  <rect x="290" y="20" width="140" height="38" rx="4"
+        fill="var(--dia-bg-deep)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <text x="360" y="44" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-size="14"
+        fill="var(--dia-stroke)">Input X</text>
+
+  <!-- 主流向下 -->
+  <line x1="360" y1="58" x2="360" y2="80"
+        stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
+
+  <!-- ========== Sub-block 1: Self-Attention ========== -->
+  <rect x="240" y="80" width="240" height="60" rx="4"
+        fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="240" y="80" width="3" height="60" fill="var(--dia-accent)"/>
+  <text x="360" y="108" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-weight="600" font-size="15"
+        fill="var(--dia-stroke)">Multi-Head Self-Attention</text>
+  <text x="360" y="128" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-stroke-soft)">Q, K, V projections + softmax(QKᵀ/√d)V</text>
+
+  <line x1="360" y1="140" x2="360" y2="170"
+        stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
+
+  <!-- ========== Sub-block 2: Add & LayerNorm ========== -->
+  <rect x="280" y="170" width="160" height="32" rx="4"
+        fill="var(--dia-bg-deep)" stroke="var(--dia-stroke)" stroke-width="1.4"/>
+  <text x="360" y="190" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-size="13"
+        fill="var(--dia-stroke)">Add &amp; LayerNorm</text>
+
+  <line x1="360" y1="202" x2="360" y2="225"
+        stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
+
+  <!-- ========== Sub-block 3: FFN ========== -->
+  <rect x="240" y="225" width="240" height="60" rx="4"
+        fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="240" y="225" width="3" height="60" fill="var(--dia-blue)"/>
+  <text x="360" y="253" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-weight="600" font-size="15"
+        fill="var(--dia-stroke)">Feed-Forward Network</text>
+  <text x="360" y="273" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-stroke-soft)">Linear → GELU → Linear (4× expansion)</text>
+
+  <line x1="360" y1="285" x2="360" y2="305"
+        stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
+
+  <!-- ========== Output box ========== -->
+  <rect x="290" y="305" width="140" height="38" rx="4"
+        fill="var(--dia-bg-deep)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <text x="360" y="329" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-size="14"
+        fill="var(--dia-stroke)">Output</text>
+
+  <!-- ========== 残差连接 (虚线, 在右侧绕过) ========== -->
+  <path d="M 480 100 L 540 100 L 540 186 L 440 186"
+        stroke="var(--dia-stroke-soft)" stroke-width="1.2"
+        stroke-dasharray="4,3" fill="none" marker-end="url(#arch-arrow)"/>
+  <text x="560" y="146" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="11"
+        fill="var(--dia-stroke-soft)">residual</text>
+
+  <path d="M 480 245 L 600 245 L 600 240 L 600 320 L 440 320 L 440 324"
+        stroke="var(--dia-stroke-soft)" stroke-width="1.2"
+        stroke-dasharray="4,3" fill="none" marker-end="url(#arch-arrow)"/>
+
+  <!-- ========== Block 标注 (左侧) ========== -->
+  <text x="60" y="180" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="600" font-size="14"
+        fill="var(--dia-stroke-soft)" transform="rotate(-90, 60, 180)">Transformer Block × N</text>
+</svg>

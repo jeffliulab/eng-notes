@@ -1,0 +1,2650 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jeffliulab.github.io/eng-notes/08_Communication_Networks/%E8%BF%9C%E7%A8%8B%E9%80%9A%E4%BF%A1/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+          <link rel="alternate" href="../../en/08_Communication_Networks/%E8%BF%9C%E7%A8%8B%E9%80%9A%E4%BF%A1/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>远程通信 - Engineering Notes — 计算机工程与机器人工程</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../site_extra_styles/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Engineering Notes — 计算机工程与机器人工程" class="md-header__button md-logo" aria-label="Engineering Notes — 计算机工程与机器人工程" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Engineering Notes — 计算机工程与机器人工程
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              远程通信
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../en/08_Communication_Networks/%E8%BF%9C%E7%A8%8B%E9%80%9A%E4%BF%A1/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jeffliulab/eng-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jeffliulab/eng-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../00_Foundations/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  工程基础
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02_Computer_Engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  计算机工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01_Electrical_Engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  电气工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04_Mechanical_Engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  机械工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03_Embedded_Systems/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  嵌入式系统
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05_Sensors_Perception/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  传感器与感知
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../06_Actuators_Motors/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  执行器与电机
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../07_Power_Energy/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  电源与能源
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  通信与网络
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../09_Control_HMI/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  控制与人机交互
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../10_Robot_Integration/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  机器人集成
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../11_Manufacturing_Frontiers/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  制造与前沿
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Engineering Notes — 计算机工程与机器人工程" class="md-nav__button md-logo" aria-label="Engineering Notes — 计算机工程与机器人工程" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Engineering Notes — 计算机工程与机器人工程
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jeffliulab/eng-notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jeffliulab/eng-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../00_Foundations/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程基础
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工程基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../02_Computer_Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../01_Electrical_Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电气工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    电气工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../04_Mechanical_Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机械工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机械工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../03_Embedded_Systems/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    嵌入式系统
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    嵌入式系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../05_Sensors_Perception/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    传感器与感知
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    传感器与感知
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../06_Actuators_Motors/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    执行器与电机
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    执行器与电机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../07_Power_Energy/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电源与能源
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    电源与能源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通信与网络
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    通信与网络
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../09_Control_HMI/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    控制与人机交互
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    控制与人机交互
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../10_Robot_Integration/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器人集成
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机器人集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_13" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../11_Manufacturing_Frontiers/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    制造与前沿
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    制造与前沿
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        概述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4g5g" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4G/5G蜂窝通信
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4G/5G蜂窝通信">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4g-lte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4G LTE模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        连接方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AT指令基本操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-sbc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在Linux SBC上使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5g" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5G模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        应用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoRa
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoRa">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        传输速率与距离
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sx1262sx1268" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SX1262/SX1268
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lora_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoRa模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arduino-lora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arduino LoRa示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lora_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoRa应用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RC遥控器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RC遥控器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#24ghz-rc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4GHz RC系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        接收器输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sbus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SBUS协议
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        遥测链路（Telemetry）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="遥测链路（Telemetry）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mavlink" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MAVLink协议
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v2xvehicle-to-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        V2X（Vehicle-to-Everything）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="V2X（Vehicle-to-Everything）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        技术标准
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配送机器人应用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        通信方案综合对比
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">远程通信<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">概述<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>当机器人的工作范围超出WiFi/蓝牙覆盖距离时，需要远程通信方案。4G/5G蜂窝网络提供高带宽广域覆盖，LoRa提供超远距离低功耗传输，RC遥控器提供低延迟实时操控。</p>
+<h2 id="4g5g">4G/5G蜂窝通信<a class="headerlink" href="#4g5g" title="Permanent link">&para;</a></h2>
+<h3 id="4g-lte">4G LTE模块<a class="headerlink" href="#4g-lte" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>制造商</th>
+<th>速率(下行)</th>
+<th>频段</th>
+<th>接口</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SIM7600CE</td>
+<td>SIMCom</td>
+<td>150Mbps</td>
+<td>全网通</td>
+<td>UART/USB</td>
+<td>国内常用</td>
+</tr>
+<tr>
+<td>SIM7600G-H</td>
+<td>SIMCom</td>
+<td>150Mbps</td>
+<td>全球频段</td>
+<td>UART/USB</td>
+<td>全球漫游</td>
+</tr>
+<tr>
+<td>EC20</td>
+<td>Quectel</td>
+<td>150Mbps</td>
+<td>全网通</td>
+<td>USB/UART</td>
+<td>稳定可靠</td>
+</tr>
+<tr>
+<td>EC25</td>
+<td>Quectel</td>
+<td>150Mbps</td>
+<td>全网通</td>
+<td>USB</td>
+<td>模组小型化</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">连接方式<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>    SIM卡
+      │
+ ┌────┴────┐
+ │ 4G模块   │
+ │(SIM7600) │
+ └─┬──┬────┘
+   │  │
+ UART USB ──→ MCU / Linux SBC
+   │
+   └── AT指令控制
+</code></pre></div>
+<h3 id="at">AT指令基本操作<a class="headerlink" href="#at" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 检查模块状态</span>
+AT<span class="w">          </span>→<span class="w"> </span>OK
+AT+CPIN?<span class="w">    </span>→<span class="w"> </span>+CPIN:<span class="w"> </span>READY<span class="w">  </span><span class="o">(</span>SIM卡就绪<span class="o">)</span>
+AT+CSQ<span class="w">      </span>→<span class="w"> </span>+CSQ:<span class="w"> </span><span class="m">25</span>,0<span class="w">    </span><span class="o">(</span>信号强度,<span class="w"> </span><span class="m">25</span>/31<span class="o">)</span>
+AT+CREG?<span class="w">    </span>→<span class="w"> </span>+CREG:<span class="w"> </span><span class="m">0</span>,1<span class="w">    </span><span class="o">(</span>已注册本地网络<span class="o">)</span>
+AT+CGATT?<span class="w">   </span>→<span class="w"> </span>+CGATT:<span class="w"> </span><span class="m">1</span><span class="w">     </span><span class="o">(</span>已附着GPRS<span class="o">)</span>
+
+<span class="c1"># 建立PPP连接或使用模块内置TCP/IP栈</span>
+AT+CIPOPEN<span class="o">=</span><span class="m">0</span>,<span class="s2">&quot;TCP&quot;</span>,<span class="s2">&quot;server.example.com&quot;</span>,8080
+AT+CIPSEND<span class="o">=</span><span class="m">0</span>,12
+Hello<span class="w"> </span>Robot!
+
+<span class="c1"># 通过USB提供网络接口（更推荐）</span>
+<span class="c1"># 模块作为USB网卡，Linux自动识别为eth1/wwan0</span>
+</code></pre></div>
+<h3 id="linux-sbc">在Linux SBC上使用<a class="headerlink" href="#linux-sbc" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Raspberry Pi / Jetson 通过USB使用4G模块</span>
+<span class="c1"># 模块通常识别为 /dev/ttyUSB0-3 和网卡接口</span>
+
+<span class="c1"># 使用NetworkManager管理</span>
+sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>add<span class="w"> </span><span class="nb">type</span><span class="w"> </span>gsm<span class="w"> </span>ifname<span class="w"> </span><span class="s1">&#39;*&#39;</span><span class="w"> </span>con-name<span class="w"> </span><span class="s1">&#39;4G&#39;</span><span class="w"> </span>apn<span class="w"> </span><span class="s1">&#39;cmiot&#39;</span>
+sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s1">&#39;4G&#39;</span>
+
+<span class="c1"># 检查连接</span>
+ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>wwan0
+ping<span class="w"> </span>-I<span class="w"> </span>wwan0<span class="w"> </span><span class="m">8</span>.8.8.8
+</code></pre></div>
+<h3 id="5g">5G模块<a class="headerlink" href="#5g" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>4G LTE</th>
+<th>5G NR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>下行峰值</td>
+<td>150 Mbps</td>
+<td>1-10 Gbps</td>
+</tr>
+<tr>
+<td>上行峰值</td>
+<td>50 Mbps</td>
+<td>500 Mbps</td>
+</tr>
+<tr>
+<td>延迟</td>
+<td>20-50ms</td>
+<td>1-10ms</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>中</td>
+<td>较高</td>
+</tr>
+<tr>
+<td>模块成本</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>覆盖</td>
+<td>广</td>
+<td>发展中</td>
+</tr>
+</tbody>
+</table>
+<p>5G的低延迟特性（uRLLC模式可达1ms）为云端机器人控制提供了可能。</p>
+<h3 id="_4">应用场景<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>远程监控</strong>：通过4G回传机器人视频和状态</li>
+<li><strong>云端控制</strong>：利用云端算力进行路径规划和决策</li>
+<li><strong>OTA升级</strong>：远程固件更新</li>
+<li><strong>数据采集</strong>：外场测试数据实时上传</li>
+<li><strong>多机协调</strong>：通过云端服务器协调多台机器人</li>
+</ul>
+<h2 id="lora">LoRa<a class="headerlink" href="#lora" title="Permanent link">&para;</a></h2>
+<h3 id="_5">原理<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>LoRa（Long Range）使用CSS（啁啾扩频）调制技术，在极低功耗下实现超远距离通信：</p>
+<div class="arithmatex">\[
+\text{啁啾信号}: f(t) = f_0 + \frac{BW}{T_s} \cdot t
+\]</div>
+<p>频率随时间线性变化（上啁啾/下啁啾），扩频增益换取传输距离。</p>
+<h3 id="_6">关键参数<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频段</td>
+<td>ISM免许可频段</td>
+<td>433MHz / 868MHz / 915MHz / 470MHz(中国)</td>
+</tr>
+<tr>
+<td>扩频因子 SF</td>
+<td>越大距离越远、速率越低</td>
+<td>7-12</td>
+</tr>
+<tr>
+<td>带宽 BW</td>
+<td>信号占用频率范围</td>
+<td>125/250/500 kHz</td>
+</tr>
+<tr>
+<td>编码率 CR</td>
+<td>前向纠错冗余</td>
+<td>4/5, 4/6, 4/7, 4/8</td>
+</tr>
+<tr>
+<td>发射功率</td>
+<td>输出功率</td>
+<td>最大20dBm (100mW)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">传输速率与距离<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>SF</th>
+<th>BW=125kHz速率</th>
+<th>灵敏度</th>
+<th>大致距离</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7</td>
+<td>5.47 kbps</td>
+<td>-123 dBm</td>
+<td>2-5 km</td>
+</tr>
+<tr>
+<td>9</td>
+<td>1.76 kbps</td>
+<td>-129 dBm</td>
+<td>5-8 km</td>
+</tr>
+<tr>
+<td>12</td>
+<td>0.29 kbps</td>
+<td>-137 dBm</td>
+<td>10-15 km</td>
+</tr>
+</tbody>
+</table>
+<div class="arithmatex">\[
+\text{链路预算} = P_{tx} + G_{ant} - L_{path} &gt; S_{rx}
+\]</div>
+<h3 id="sx1262sx1268">SX1262/SX1268<a class="headerlink" href="#sx1262sx1268" title="Permanent link">&para;</a></h3>
+<p>Semtech SX1262是最新一代LoRa收发芯片：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频率范围</td>
+<td>150-960 MHz</td>
+</tr>
+<tr>
+<td>发射功率</td>
+<td>+22 dBm（SX1262）/ +15 dBm（SX1261）</td>
+</tr>
+<tr>
+<td>灵敏度</td>
+<td>-148 dBm (SF12, 125kHz)</td>
+</tr>
+<tr>
+<td>电流</td>
+<td>发射: 118mA，接收: 4.6mA，睡眠: 0.6μA</td>
+</tr>
+<tr>
+<td>接口</td>
+<td>SPI</td>
+</tr>
+<tr>
+<td>封装</td>
+<td>4×4mm QFN</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lora_1">LoRa模块<a class="headerlink" href="#lora_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>芯片</th>
+<th>频段</th>
+<th>接口</th>
+<th>价格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EBYTE E22-400T30D</td>
+<td>SX1268</td>
+<td>410-493MHz</td>
+<td>UART</td>
+<td>~30元</td>
+</tr>
+<tr>
+<td>EBYTE E22-900T30D</td>
+<td>SX1262</td>
+<td>850-930MHz</td>
+<td>UART</td>
+<td>~30元</td>
+</tr>
+<tr>
+<td>RAK4630</td>
+<td>SX1262+nRF52840</td>
+<td>多频段</td>
+<td>BLE+LoRa</td>
+<td>~60元</td>
+</tr>
+<tr>
+<td>Heltec LoRa32 V3</td>
+<td>SX1262+ESP32-S3</td>
+<td>多频段</td>
+<td>WiFi+BLE+LoRa</td>
+<td>~50元</td>
+</tr>
+</tbody>
+</table>
+<h3 id="arduino-lora">Arduino LoRa示例<a class="headerlink" href="#arduino-lora" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 使用RadioLib库操作SX1262</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;RadioLib.h&gt;</span>
+
+<span class="c1">// SX1262 引脚定义</span>
+<span class="n">SX1262</span><span class="w"> </span><span class="n">radio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Module</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">);</span><span class="w">  </span><span class="c1">// CS, DIO1, RST, BUSY</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 初始化LoRa</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">radio</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span>
+<span class="w">        </span><span class="mf">470.0</span><span class="p">,</span><span class="w">    </span><span class="c1">// 频率 MHz</span>
+<span class="w">        </span><span class="mf">125.0</span><span class="p">,</span><span class="w">    </span><span class="c1">// 带宽 kHz</span>
+<span class="w">        </span><span class="mi">9</span><span class="p">,</span><span class="w">        </span><span class="c1">// 扩频因子</span>
+<span class="w">        </span><span class="mi">7</span><span class="p">,</span><span class="w">        </span><span class="c1">// 编码率 4/7</span>
+<span class="w">        </span><span class="mh">0x12</span><span class="p">,</span><span class="w">     </span><span class="c1">// 同步字</span>
+<span class="w">        </span><span class="mi">22</span><span class="p">,</span><span class="w">       </span><span class="c1">// 发射功率 dBm</span>
+<span class="w">        </span><span class="mi">8</span><span class="p">,</span><span class="w">        </span><span class="c1">// 前导码长度</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span><span class="w">        </span><span class="c1">// TCXO电压</span>
+<span class="w">        </span><span class="nb">false</span><span class="w">     </span><span class="c1">// 使用LDO</span>
+<span class="w">    </span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">RADIOLIB_ERR_NONE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;LoRa 初始化成功!&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 发送端</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">sendRobotStatus</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 打包机器人状态（经纬度+电池+状态码）</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">lat</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">lon</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">battery</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">39.9042</span><span class="p">,</span><span class="w"> </span><span class="mf">116.4074</span><span class="p">,</span><span class="w"> </span><span class="mi">85</span><span class="p">,</span><span class="w"> </span><span class="mh">0x01</span><span class="p">};</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">radio</span><span class="p">.</span><span class="n">transmit</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">RADIOLIB_ERR_NONE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Serial</span><span class="p">.</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;发送成功, RSSI=%.1f dBm</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">radio</span><span class="p">.</span><span class="n">getRSSI</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 接收端</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">receiveData</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">radio</span><span class="p">.</span><span class="n">receive</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">RADIOLIB_ERR_NONE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Serial</span><span class="p">.</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;收到%d字节, RSSI=%.1f, SNR=%.1f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">radio</span><span class="p">.</span><span class="n">getPacketLength</span><span class="p">(),</span><span class="w"> </span><span class="n">radio</span><span class="p">.</span><span class="n">getRSSI</span><span class="p">(),</span><span class="w"> </span><span class="n">radio</span><span class="p">.</span><span class="n">getSNR</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="lora_2">LoRa应用场景<a class="headerlink" href="#lora_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>数据内容</th>
+<th>频率</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>农业巡检无人车</td>
+<td>GPS+状态</td>
+<td>每10秒</td>
+<td>远距离、低频</td>
+</tr>
+<tr>
+<td>环境监测站</td>
+<td>温湿度+气压</td>
+<td>每分钟</td>
+<td>太阳能供电</td>
+</tr>
+<tr>
+<td>搜救机器人</td>
+<td>位置+求助信号</td>
+<td>事件触发</td>
+<td>应急场景</td>
+</tr>
+<tr>
+<td>无人机编队</td>
+<td>简单指令</td>
+<td>1-10Hz</td>
+<td>超视距控制</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rc">RC遥控器<a class="headerlink" href="#rc" title="Permanent link">&para;</a></h2>
+<h3 id="24ghz-rc">2.4GHz RC系统<a class="headerlink" href="#24ghz-rc" title="Permanent link">&para;</a></h3>
+<p>传统航模遥控器广泛用于机器人遥操作：</p>
+<table>
+<thead>
+<tr>
+<th>品牌</th>
+<th>型号</th>
+<th>通道数</th>
+<th>协议</th>
+<th>延迟</th>
+<th>距离</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FlySky</td>
+<td>FS-i6X</td>
+<td>10</td>
+<td>AFHDS 2A</td>
+<td>~10ms</td>
+<td>1.5km</td>
+</tr>
+<tr>
+<td>FrSky</td>
+<td>X9D+</td>
+<td>16</td>
+<td>ACCESS</td>
+<td>~8ms</td>
+<td>2km</td>
+</tr>
+<tr>
+<td>RadioLink</td>
+<td>AT9S</td>
+<td>12</td>
+<td>FHSS</td>
+<td>~10ms</td>
+<td>1.5km</td>
+</tr>
+<tr>
+<td>TBS</td>
+<td>Crossfire</td>
+<td>12</td>
+<td>LoRa混合</td>
+<td>~5ms</td>
+<td>40km+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_8">接收器输出<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>输出类型</th>
+<th>说明</th>
+<th>应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PWM</td>
+<td>每通道一根线，1-2ms脉冲</td>
+<td>直接驱动舵机</td>
+</tr>
+<tr>
+<td>PPM</td>
+<td>所有通道复用一根线</td>
+<td>MCU解析</td>
+</tr>
+<tr>
+<td>SBUS</td>
+<td>串口协议（反转UART）</td>
+<td>飞控/MCU</td>
+</tr>
+<tr>
+<td>CRSF</td>
+<td>高速双向串口</td>
+<td>TBS Crossfire</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sbus">SBUS协议<a class="headerlink" href="#sbus" title="Permanent link">&para;</a></h3>
+<p>SBUS（Serial Bus）是Futaba开发的协议，已成为RC接收器的标准输出：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>波特率</td>
+<td>100000 (非标准)</td>
+</tr>
+<tr>
+<td>数据位</td>
+<td>8位，偶校验，2停止位</td>
+</tr>
+<tr>
+<td>电平</td>
+<td>反相（需要反相器或软件反相）</td>
+</tr>
+<tr>
+<td>帧长度</td>
+<td>25字节</td>
+</tr>
+<tr>
+<td>通道数</td>
+<td>16（11位/通道）+ 2数字通道</td>
+</tr>
+<tr>
+<td>帧率</td>
+<td>14ms 或 7ms（高速模式）</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1">// ESP32 SBUS 解析</span>
+<span class="cp">#define SBUS_BAUDRATE 100000</span>
+<span class="cp">#define SBUS_FRAME_SIZE 25</span>
+
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">channels</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">parseSBUS</span><span class="p">(</span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mh">0x0F</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w">  </span><span class="c1">// 帧头</span>
+
+<span class="w">    </span><span class="n">channels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">buf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">8</span><span class="p">)</span><span class="w">                   </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x07FF</span><span class="p">);</span>
+<span class="w">    </span><span class="n">channels</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">buf</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;&gt;</span><span class="mi">3</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">5</span><span class="p">)</span><span class="w">                   </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x07FF</span><span class="p">);</span>
+<span class="w">    </span><span class="n">channels</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">buf</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">&gt;&gt;</span><span class="mi">6</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">2</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">10</span><span class="p">)</span><span class="w">     </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x07FF</span><span class="p">);</span>
+<span class="w">    </span><span class="n">channels</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">buf</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">7</span><span class="p">)</span><span class="w">                   </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x07FF</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// ... 继续解析其余通道</span>
+
+<span class="w">    </span><span class="c1">// 通道值范围: 172-1811, 中值992</span>
+<span class="w">    </span><span class="c1">// 映射到 -100%~+100%</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// SBUS是反相UART，ESP32可用uart_set_line_inverse</span>
+<span class="w">    </span><span class="n">Serial2</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">SBUS_BAUDRATE</span><span class="p">,</span><span class="w"> </span><span class="n">SERIAL_8E2</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w">  </span><span class="c1">// 反相</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="telemetry">遥测链路（Telemetry）<a class="headerlink" href="#telemetry" title="Permanent link">&para;</a></h2>
+<h3 id="_9">概述<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>遥测链路用于机器人与地面站之间的双向数据传输，常见于无人机和无人车。</p>
+<h3 id="_10">常见方案<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>频段</th>
+<th>距离</th>
+<th>带宽</th>
+<th>应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数传电台</td>
+<td>433/915MHz</td>
+<td>5-20km</td>
+<td>100kbps</td>
+<td>MAVLink遥测</td>
+</tr>
+<tr>
+<td>WiFi中继</td>
+<td>2.4/5GHz</td>
+<td>1-5km</td>
+<td>高</td>
+<td>图传+遥测</td>
+</tr>
+<tr>
+<td>4G</td>
+<td>蜂窝</td>
+<td>无限</td>
+<td>高</td>
+<td>远程监控</td>
+</tr>
+<tr>
+<td>图传</td>
+<td>5.8GHz</td>
+<td>1-10km</td>
+<td>20-50Mbps</td>
+<td>FPV视频</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mavlink">MAVLink协议<a class="headerlink" href="#mavlink" title="Permanent link">&para;</a></h3>
+<p>MAVLink（Micro Air Vehicle Link）是无人机/机器人领域的标准遥测协议：</p>
+<ul>
+<li>轻量级消息协议</li>
+<li>支持256种消息类型</li>
+<li>CRC校验</li>
+<li>兼容多种传输层（UART、UDP、TCP）</li>
+<li>被PX4、ArduPilot等飞控系统广泛使用</li>
+</ul>
+<h2 id="v2xvehicle-to-everything">V2X（Vehicle-to-Everything）<a class="headerlink" href="#v2xvehicle-to-everything" title="Permanent link">&para;</a></h2>
+<h3 id="_11">概述<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>V2X通信用于户外移动机器人（自动驾驶、配送机器人）与周围环境的交互：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>V2V</td>
+<td>车辆对车辆，避碰协调</td>
+</tr>
+<tr>
+<td>V2I</td>
+<td>车辆对基础设施，交通信号灯</td>
+</tr>
+<tr>
+<td>V2P</td>
+<td>车辆对行人，安全预警</td>
+</tr>
+<tr>
+<td>V2N</td>
+<td>车辆对网络，云端服务</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">技术标准<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>技术</th>
+<th>延迟</th>
+<th>距离</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DSRC (IEEE 802.11p)</td>
+<td>WiFi变体</td>
+<td>&lt;10ms</td>
+<td>300m</td>
+</tr>
+<tr>
+<td>C-V2X (3GPP)</td>
+<td>蜂窝技术</td>
+<td>&lt;20ms</td>
+<td>500m</td>
+</tr>
+<tr>
+<td>NR-V2X (5G)</td>
+<td>5G直连</td>
+<td>&lt;3ms</td>
+<td>500m</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_13">配送机器人应用<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>户外配送机器人需要的远程通信能力：</p>
+<ul>
+<li>4G/5G上报位置和状态</li>
+<li>接收调度指令和路径更新</li>
+<li>遇到异常时远程接管（遥操作）</li>
+<li>OTA固件升级</li>
+</ul>
+<h2 id="_14">通信方案综合对比<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>距离</th>
+<th>带宽</th>
+<th>延迟</th>
+<th>功耗</th>
+<th>成本</th>
+<th>月费</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4G LTE</td>
+<td>覆盖区</td>
+<td>150M</td>
+<td>30ms</td>
+<td>高</td>
+<td>中</td>
+<td>有</td>
+</tr>
+<tr>
+<td>5G NR</td>
+<td>覆盖区</td>
+<td>1G+</td>
+<td>5ms</td>
+<td>高</td>
+<td>高</td>
+<td>有</td>
+</tr>
+<tr>
+<td>LoRa</td>
+<td>2-15km</td>
+<td>50k</td>
+<td>100ms+</td>
+<td>极低</td>
+<td>低</td>
+<td>无</td>
+</tr>
+<tr>
+<td>RC遥控器</td>
+<td>1-2km</td>
+<td>100k</td>
+<td>10ms</td>
+<td>低</td>
+<td>中</td>
+<td>无</td>
+</tr>
+<tr>
+<td>数传电台</td>
+<td>5-20km</td>
+<td>100k</td>
+<td>20ms</td>
+<td>中</td>
+<td>低</td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_15">小结<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<ul>
+<li>4G/5G提供广域高带宽连接，适合远程监控和云端协作</li>
+<li>5G的低延迟模式为云端实时控制打开了可能</li>
+<li>LoRa以极低功耗实现超远距离通信，适合低速率场景</li>
+<li>RC遥控器提供可靠的低延迟实时操控</li>
+<li>SBUS是RC接收器到MCU的标准数据协议</li>
+<li>MAVLink是无人机/机器人遥测的事实标准</li>
+<li>实际系统通常组合多种通信方式以覆盖不同需求</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

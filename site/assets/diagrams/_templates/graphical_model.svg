@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Graphical Model Template (HMM / Bayesian Network style)
+  使用方法:
+    1. 复制此文件到 docs/<section>/<article>/diagrams/figure-N-<name>.svg
+    2. 改 viewBox / 节点坐标 / 标签 / 边
+    3. Markdown 嵌入: 见说明区
+  风格参考: /home/ai-notes/参考html代码包括hmms的图.html §02
+  色板: extra.css 中 --dia-* 变量
+-->
+<svg viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg">
+  <!-- 箭头 marker (固定使用) -->
+  <defs>
+    <marker id="gm-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="var(--dia-stroke)"/>
+    </marker>
+    <marker id="gm-arrow-soft" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="var(--dia-stroke-soft)"/>
+    </marker>
+  </defs>
+
+  <!-- ========== Hidden state row (圆形, 浅色填充, 主笔画描边) ========== -->
+  <g>
+    <!-- S₀ -->
+    <circle cx="80"  cy="80" r="36" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="2"/>
+    <text x="80" y="86" text-anchor="middle"
+          font-family="Fraunces, Georgia, serif" font-size="20" font-style="italic"
+          fill="var(--dia-stroke)">S₀</text>
+
+    <!-- S₁ -->
+    <circle cx="240" cy="80" r="36" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="2"/>
+    <text x="240" y="86" text-anchor="middle"
+          font-family="Fraunces, Georgia, serif" font-size="20" font-style="italic"
+          fill="var(--dia-stroke)">S₁</text>
+
+    <!-- S₂ -->
+    <circle cx="400" cy="80" r="36" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="2"/>
+    <text x="400" y="86" text-anchor="middle"
+          font-family="Fraunces, Georgia, serif" font-size="20" font-style="italic"
+          fill="var(--dia-stroke)">S₂</text>
+
+    <!-- S₃ -->
+    <circle cx="560" cy="80" r="36" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="2"/>
+    <text x="560" y="86" text-anchor="middle"
+          font-family="Fraunces, Georgia, serif" font-size="20" font-style="italic"
+          fill="var(--dia-stroke)">S₃</text>
+
+    <!-- ⋯ 续展示 -->
+    <circle cx="680" cy="80" r="20" fill="none"
+            stroke="var(--dia-stroke-soft)" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="680" y="86" text-anchor="middle"
+          font-family="Fraunces, Georgia, serif" font-size="14" font-style="italic"
+          fill="var(--dia-stroke-soft)">⋯</text>
+  </g>
+
+  <!-- ========== Transition arrows (横向 主黑色) ========== -->
+  <line x1="116" y1="80" x2="204" y2="80"
+        stroke="var(--dia-stroke)" stroke-width="2" marker-end="url(#gm-arrow)"/>
+  <line x1="276" y1="80" x2="364" y2="80"
+        stroke="var(--dia-stroke)" stroke-width="2" marker-end="url(#gm-arrow)"/>
+  <line x1="436" y1="80" x2="524" y2="80"
+        stroke="var(--dia-stroke)" stroke-width="2" marker-end="url(#gm-arrow)"/>
+  <line x1="596" y1="80" x2="660" y2="80"
+        stroke="var(--dia-stroke-soft)" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Transition labels (mono 字体, 主强调色, 在箭头上方) -->
+  <text x="160" y="68" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-accent)">P(S₁|S₀)</text>
+  <text x="320" y="68" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-accent)">P(S₂|S₁)</text>
+  <text x="480" y="68" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-accent)">P(S₃|S₂)</text>
+
+  <!-- ========== Observation row (方形, 深色填充) ========== -->
+  <g>
+    <rect x="50"  y="190" width="60" height="60" rx="4"
+          fill="var(--dia-bg-deep)" stroke="var(--dia-stroke)" stroke-width="2"/>
+    <text x="80" y="226" text-anchor="middle"
+          font-family="Fraunces, Georgia, serif" font-size="20" font-style="italic"
+          fill="var(--dia-stroke)">O₀</text>
+
+    <rect x="210" y="190" width="60" height="60" rx="4"
+          fill="var(--dia-bg-deep)" stroke="var(--dia-stroke)" stroke-width="2"/>
+    <text x="240" y="226" text-anchor="middle"
+          font-family="Fraunces, Georgia, serif" font-size="20" font-style="italic"
+          fill="var(--dia-stroke)">O₁</text>
+
+    <rect x="370" y="190" width="60" height="60" rx="4"
+          fill="var(--dia-bg-deep)" stroke="var(--dia-stroke)" stroke-width="2"/>
+    <text x="400" y="226" text-anchor="middle"
+          font-family="Fraunces, Georgia, serif" font-size="20" font-style="italic"
+          fill="var(--dia-stroke)">O₂</text>
+
+    <rect x="530" y="190" width="60" height="60" rx="4"
+          fill="var(--dia-bg-deep)" stroke="var(--dia-stroke)" stroke-width="2"/>
+    <text x="560" y="226" text-anchor="middle"
+          font-family="Fraunces, Georgia, serif" font-size="20" font-style="italic"
+          fill="var(--dia-stroke)">O₃</text>
+  </g>
+
+  <!-- ========== Emission arrows (纵向, 主黑色) ========== -->
+  <line x1="80"  y1="116" x2="80"  y2="186"
+        stroke="var(--dia-stroke)" stroke-width="2" marker-end="url(#gm-arrow)"/>
+  <line x1="240" y1="116" x2="240" y2="186"
+        stroke="var(--dia-stroke)" stroke-width="2" marker-end="url(#gm-arrow)"/>
+  <line x1="400" y1="116" x2="400" y2="186"
+        stroke="var(--dia-stroke)" stroke-width="2" marker-end="url(#gm-arrow)"/>
+  <line x1="560" y1="116" x2="560" y2="186"
+        stroke="var(--dia-stroke)" stroke-width="2" marker-end="url(#gm-arrow)"/>
+
+  <!-- Emission labels (mono 字体, 副色 green) -->
+  <text x="100" y="158" text-anchor="start"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-green)">P(O₀|S₀)</text>
+  <text x="260" y="158" text-anchor="start"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-green)">P(O₁|S₁)</text>
+  <text x="420" y="158" text-anchor="start"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-green)">P(O₂|S₂)</text>
+  <text x="580" y="158" text-anchor="start"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-green)">P(O₃|S₃)</text>
+
+  <!-- ========== Legend (左下角) ========== -->
+  <g transform="translate(40, 270)">
+    <circle cx="6" cy="0" r="6" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.5"/>
+    <text x="20" y="4" font-family="Fraunces, Georgia, serif" font-size="12" font-style="italic"
+          fill="var(--dia-stroke-soft)">hidden state（隐藏）</text>
+    <rect x="170" y="-6" width="12" height="12" rx="2"
+          fill="var(--dia-bg-deep)" stroke="var(--dia-stroke)" stroke-width="1.5"/>
+    <text x="190" y="4" font-family="Fraunces, Georgia, serif" font-size="12" font-style="italic"
+          fill="var(--dia-stroke-soft)">observation（观测）</text>
+  </g>
+</svg>

@@ -1,0 +1,2627 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jeffliulab.github.io/eng-notes/en/02_Computer_Engineering/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="../../../02_Computer_Engineering/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Operating System Fundamentals - Engineering Notes — 计算机工程与机器人工程</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../site_extra_styles/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#operating-system-fundamentals" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="Engineering Notes — 计算机工程与机器人工程" class="md-header__button md-logo" aria-label="Engineering Notes — 计算机工程与机器人工程" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Engineering Notes — 计算机工程与机器人工程
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Operating System Fundamentals
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../02_Computer_Engineering/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jeffliulab/eng-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jeffliulab/eng-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../00_Foundations/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  工程基础
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  计算机工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01_Electrical_Engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  电气工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04_Mechanical_Engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  机械工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03_Embedded_Systems/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  嵌入式系统
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05_Sensors_Perception/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  传感器与感知
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../06_Actuators_Motors/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  执行器与电机
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../07_Power_Energy/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  电源与能源
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../08_Communication_Networks/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  通信与网络
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../09_Control_HMI/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  控制与人机交互
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../10_Robot_Integration/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  机器人集成
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../11_Manufacturing_Frontiers/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  制造与前沿
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Engineering Notes — 计算机工程与机器人工程" class="md-nav__button md-logo" aria-label="Engineering Notes — 计算机工程与机器人工程" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Engineering Notes — 计算机工程与机器人工程
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jeffliulab/eng-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jeffliulab/eng-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../00_Foundations/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程基础
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工程基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../01_Electrical_Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电气工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    电气工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../04_Mechanical_Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机械工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机械工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../03_Embedded_Systems/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    嵌入式系统
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    嵌入式系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../05_Sensors_Perception/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    传感器与感知
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    传感器与感知
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../06_Actuators_Motors/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    执行器与电机
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    执行器与电机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../07_Power_Energy/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电源与能源
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    电源与能源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../08_Communication_Networks/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通信与网络
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    通信与网络
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../09_Control_HMI/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    控制与人机交互
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    控制与人机交互
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../10_Robot_Integration/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器人集成
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机器人集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_13" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../11_Manufacturing_Frontiers/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    制造与前沿
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    制造与前沿
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processes-and-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processes and Threads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Processes and Threads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-the-context-of-ros2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In the Context of ROS2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scheduling-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scheduling Algorithms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scheduling Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux Scheduler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-time-scheduling-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-Time Scheduling Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scheduling-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scheduling Latency
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux-kernel-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux Kernel Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux Kernel Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kernel-subsystems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel Subsystems
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel Modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#device-drivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Device Drivers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Device Drivers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#device-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Device Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-device-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /dev Device Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sysfs-file-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sysfs File System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v4l2-camera-driver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        V4L2 Camera Driver
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-time-patch-preempt_rt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-Time Patch (PREEMPT_RT)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Real-Time Patch (PREEMPT_RT)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-real-time-linux-is-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Real-Time Linux Is Needed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-preempt_rt-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key PREEMPT_RT Improvements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-and-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation and Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-time-performance-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-Time Performance Tuning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boot-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boot Process
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Boot Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-boot-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux Boot Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#robot-auto-start-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Robot Auto-Start Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boot-time-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boot Time Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ipc-inter-process-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IPC (Inter-Process Communication)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IPC (Inter-Process Communication)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-ipc-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux IPC Mechanisms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ros2-dds-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROS2 DDS Communication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-linux-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Linux Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Linux Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Monitoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-profiling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Profiling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="operating-system-fundamentals">Operating System Fundamentals<a class="headerlink" href="#operating-system-fundamentals" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The operating system (OS) is the foundation layer of the robot software stack, responsible for managing hardware resources, scheduling tasks, and providing programming interfaces. In robotics, Linux is the preferred OS for the main control platform, while real-time extensions are key to meeting control requirements.</p>
+<h2 id="processes-and-threads">Processes and Threads<a class="headerlink" href="#processes-and-threads" title="Permanent link">&para;</a></h2>
+<h3 id="process">Process<a class="headerlink" href="#process" title="Permanent link">&para;</a></h3>
+<p>A process is the basic unit of resource allocation in the OS:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Address Space</td>
+<td>Independent virtual address space</td>
+</tr>
+<tr>
+<td>Resources</td>
+<td>Owns independent file descriptors, memory mappings, etc.</td>
+</tr>
+<tr>
+<td>Isolation</td>
+<td>Processes are isolated; one crash does not affect others</td>
+</tr>
+<tr>
+<td>Overhead</td>
+<td>Higher overhead for creation and context switching</td>
+</tr>
+<tr>
+<td>Communication</td>
+<td>Requires IPC (pipes, shared memory, sockets, etc.)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="thread">Thread<a class="headerlink" href="#thread" title="Permanent link">&para;</a></h3>
+<p>A thread is the basic unit of CPU scheduling:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Address Space</td>
+<td>Shares the address space of its parent process</td>
+</tr>
+<tr>
+<td>Resources</td>
+<td>Shares process resources (files, memory)</td>
+</tr>
+<tr>
+<td>Independence</td>
+<td>Has its own stack, registers, and program counter</td>
+</tr>
+<tr>
+<td>Overhead</td>
+<td>Lower overhead for creation and context switching</td>
+</tr>
+<tr>
+<td>Communication</td>
+<td>Can directly read/write shared variables (requires synchronization)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="in-the-context-of-ros2">In the Context of ROS2<a class="headerlink" href="#in-the-context-of-ros2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>ROS2 Node Model:
++-- Node = Process (default) or Thread (component mode)
++-- Process mode: Each node is an independent process, good isolation
+|   $ ros2 run perception camera_node
+|   $ ros2 run navigation planner_node
++-- Component mode: Multiple nodes share one process, lower communication overhead
+    $ ros2 run rclcpp_components component_container
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">ROS2 Best Practices</p>
+<ul>
+<li>Use <strong>component mode</strong> to reduce inter-node communication overhead</li>
+<li>Nodes within the same process can use <strong>zero-copy (intra-process communication)</strong></li>
+<li>Place compute-intensive nodes in separate processes to avoid affecting other nodes</li>
+</ul>
+</div>
+<h2 id="scheduling-algorithms">Scheduling Algorithms<a class="headerlink" href="#scheduling-algorithms" title="Permanent link">&para;</a></h2>
+<h3 id="linux-scheduler">Linux Scheduler<a class="headerlink" href="#linux-scheduler" title="Permanent link">&para;</a></h3>
+<p>Linux uses <strong>CFS (Completely Fair Scheduler)</strong> as the default scheduler:</p>
+<table>
+<thead>
+<tr>
+<th>Scheduling Class</th>
+<th>Policy</th>
+<th>Priority</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCHED_DEADLINE</td>
+<td>EDF (Earliest Deadline First)</td>
+<td>Highest</td>
+<td>Hard real-time tasks</td>
+</tr>
+<tr>
+<td>SCHED_FIFO</td>
+<td>First-in-first-out real-time</td>
+<td>High (1-99)</td>
+<td>Real-time tasks</td>
+</tr>
+<tr>
+<td>SCHED_RR</td>
+<td>Round-robin real-time</td>
+<td>High (1-99)</td>
+<td>Real-time tasks</td>
+</tr>
+<tr>
+<td>SCHED_OTHER</td>
+<td>CFS fair scheduling</td>
+<td>Normal (nice value)</td>
+<td>Normal tasks</td>
+</tr>
+<tr>
+<td>SCHED_IDLE</td>
+<td>Runs only when idle</td>
+<td>Lowest</td>
+<td>Background tasks</td>
+</tr>
+</tbody>
+</table>
+<h3 id="real-time-scheduling-configuration">Real-Time Scheduling Configuration<a class="headerlink" href="#real-time-scheduling-configuration" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># View process scheduling policy and priority</span>
+chrt<span class="w"> </span>-p<span class="w"> </span>&lt;pid&gt;
+
+<span class="c1"># Set process to SCHED_FIFO with priority 80</span>
+sudo<span class="w"> </span>chrt<span class="w"> </span>-f<span class="w"> </span>-p<span class="w"> </span><span class="m">80</span><span class="w"> </span>&lt;pid&gt;
+
+<span class="c1"># Specify scheduling policy at launch</span>
+sudo<span class="w"> </span>chrt<span class="w"> </span>-f<span class="w"> </span><span class="m">80</span><span class="w"> </span>./motor_control_node
+
+<span class="c1"># Set CPU affinity (bind to specific core)</span>
+taskset<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span>./motor_control_node
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Setting thread priority in Python</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ctypes</span>
+
+<span class="c1"># Set real-time scheduling</span>
+<span class="n">SCHED_FIFO</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">param</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">libc</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">CDLL</span><span class="p">(</span><span class="s1">&#39;libc.so.6&#39;</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">sched_param</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">Structure</span><span class="p">):</span>
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;sched_priority&#39;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">)]</span>
+
+<span class="n">sp</span> <span class="o">=</span> <span class="n">sched_param</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">libc</span><span class="o">.</span><span class="n">sched_setscheduler</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">SCHED_FIFO</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">sp</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="scheduling-latency">Scheduling Latency<a class="headerlink" href="#scheduling-latency" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+t_{\text{response}} = t_{\text{interrupt}} + t_{\text{schedule}} + t_{\text{context\_switch}} + t_{\text{execution}}
+\]</div>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Typical Scheduling Latency</th>
+<th>Worst Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard Linux</td>
+<td>~100us</td>
+<td>~10ms</td>
+</tr>
+<tr>
+<td>PREEMPT_RT Linux</td>
+<td>~10us</td>
+<td>~100us</td>
+</tr>
+<tr>
+<td>FreeRTOS</td>
+<td>&lt;1us</td>
+<td>~10us</td>
+</tr>
+<tr>
+<td>Bare-metal</td>
+<td>&lt;100ns</td>
+<td>~1us</td>
+</tr>
+</tbody>
+</table>
+<h2 id="linux-kernel-architecture">Linux Kernel Architecture<a class="headerlink" href="#linux-kernel-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="kernel-subsystems">Kernel Subsystems<a class="headerlink" href="#kernel-subsystems" title="Permanent link">&para;</a></h3>
+<div class="diagram">
+<svg viewBox="0 0 560 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-m0" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="var(--dia-stroke)"/></marker></defs>
+
+  <line x1="280" y1="120" x2="280" y2="210" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="260" x2="280" y2="350" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="400" x2="110" y2="490" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="400" x2="280" y2="490" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="400" x2="450" y2="490" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="400" x2="195" y2="630" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="400" x2="365" y2="630" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="110" y1="540" x2="280" y2="770" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="540" x2="280" y2="770" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="450" y1="540" x2="280" y2="770" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="820" x2="280" y2="910" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <rect x="210" y="70" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="210" y="70" width="3" height="50" fill="var(--dia-accent)"/>
+  <text x="280" y="92" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Applications ROS2</text>
+  <text x="280" y="106" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Nodes</text>
+  <rect x="210" y="210" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="210" y="210" width="3" height="50" fill="var(--dia-green)"/>
+  <text x="280" y="239" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">C Library glibc</text>
+  <rect x="210" y="350" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="210" y="350" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="280" y="372" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">System Call</text>
+  <text x="280" y="386" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Interface</text>
+  <rect x="40" y="490" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="40" y="490" width="3" height="50" fill="var(--dia-accent)"/>
+  <text x="110" y="512" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Process</text>
+  <text x="110" y="526" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Management</text>
+  <rect x="210" y="490" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="210" y="490" width="3" height="50" fill="var(--dia-accent)"/>
+  <text x="280" y="519" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Memory Management</text>
+  <rect x="380" y="490" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="380" y="490" width="3" height="50" fill="var(--dia-accent)"/>
+  <text x="450" y="512" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Virtual File</text>
+  <text x="450" y="526" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">System VFS</text>
+  <rect x="125" y="630" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="125" y="630" width="3" height="50" fill="var(--dia-accent)"/>
+  <text x="195" y="652" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Network Subsystem</text>
+  <text x="195" y="666" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Network Stack</text>
+  <rect x="295" y="630" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="295" y="630" width="3" height="50" fill="var(--dia-accent)"/>
+  <text x="365" y="652" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Inter-Process</text>
+  <text x="365" y="666" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Communication IPC</text>
+  <rect x="210" y="770" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="210" y="770" width="3" height="50" fill="var(--dia-green)"/>
+  <text x="280" y="799" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Device Drivers</text>
+  <rect x="210" y="910" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="210" y="910" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="280" y="925" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Hardware</text>
+  <text x="280" y="939" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Abstraction Layer</text>
+  <text x="280" y="953" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">HAL</text>
+</svg>
+</div>
+
+<h3 id="kernel-modules">Kernel Modules<a class="headerlink" href="#kernel-modules" title="Permanent link">&para;</a></h3>
+<p>The Linux kernel is modular, and drivers can be dynamically loaded:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># View loaded kernel modules</span>
+lsmod
+
+<span class="c1"># Load modules</span>
+sudo<span class="w"> </span>modprobe<span class="w"> </span>v4l2_common<span class="w">   </span><span class="c1"># V4L2 video driver</span>
+sudo<span class="w"> </span>modprobe<span class="w"> </span>can_raw<span class="w">        </span><span class="c1"># CAN bus raw socket</span>
+
+<span class="c1"># Unload a module</span>
+sudo<span class="w"> </span>rmmod<span class="w"> </span>can_raw
+
+<span class="c1"># View module information</span>
+modinfo<span class="w"> </span>nvidia<span class="w">   </span><span class="c1"># NVIDIA GPU driver info</span>
+</code></pre></div>
+<h2 id="device-drivers">Device Drivers<a class="headerlink" href="#device-drivers" title="Permanent link">&para;</a></h2>
+<h3 id="device-types">Device Types<a class="headerlink" href="#device-types" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Interface</th>
+<th>Examples</th>
+<th>Access Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Character Device</strong></td>
+<td>Stream read/write</td>
+<td>Serial port, IMU, GPIO</td>
+<td><code>/dev/ttyUSB0</code></td>
+</tr>
+<tr>
+<td><strong>Block Device</strong></td>
+<td>Random read/write</td>
+<td>SSD, eMMC</td>
+<td><code>/dev/sda</code></td>
+</tr>
+<tr>
+<td><strong>Network Device</strong></td>
+<td>Socket</td>
+<td>Ethernet, WiFi</td>
+<td><code>eth0</code>, <code>wlan0</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="dev-device-files">/dev Device Files<a class="headerlink" href="#dev-device-files" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Common robot device files</span>
+/dev/ttyUSB0<span class="w">     </span><span class="c1"># USB serial (MCU communication)</span>
+/dev/ttyTHS0<span class="w">     </span><span class="c1"># Jetson native serial port</span>
+/dev/video0<span class="w">      </span><span class="c1"># USB camera (V4L2)</span>
+/dev/i2c-1<span class="w">       </span><span class="c1"># I2C bus</span>
+/dev/spidev0.0<span class="w">   </span><span class="c1"># SPI device</span>
+/dev/can0<span class="w">        </span><span class="c1"># CAN bus</span>
+/dev/input/js0<span class="w">   </span><span class="c1"># Game controller</span>
+/dev/nvme0n1<span class="w">     </span><span class="c1"># NVMe SSD</span>
+</code></pre></div>
+<h3 id="sysfs-file-system">sysfs File System<a class="headerlink" href="#sysfs-file-system" title="Permanent link">&para;</a></h3>
+<p>sysfs provides a user-space interface for kernel objects:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># GPIO control</span>
+<span class="nb">echo</span><span class="w"> </span><span class="m">17</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/class/gpio/export
+<span class="nb">echo</span><span class="w"> </span>out<span class="w"> </span>&gt;<span class="w"> </span>/sys/class/gpio/gpio17/direction
+<span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/class/gpio/gpio17/value
+
+<span class="c1"># View CPU temperature</span>
+cat<span class="w"> </span>/sys/class/thermal/thermal_zone0/temp
+<span class="c1"># Output: 45000 (means 45.000 C)</span>
+
+<span class="c1"># View CPU frequency</span>
+cat<span class="w"> </span>/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+<span class="c1"># Output: 2400000 (means 2.4GHz)</span>
+
+<span class="c1"># Set Jetson power mode</span>
+sudo<span class="w"> </span>nvpmodel<span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="c1"># Maximum performance</span>
+sudo<span class="w"> </span>nvpmodel<span class="w"> </span>-m<span class="w"> </span><span class="m">1</span><span class="w">  </span><span class="c1"># 15W mode</span>
+
+<span class="c1"># View GPU utilization (Jetson)</span>
+cat<span class="w"> </span>/sys/devices/gpu.0/load
+</code></pre></div>
+<h3 id="v4l2-camera-driver">V4L2 Camera Driver<a class="headerlink" href="#v4l2-camera-driver" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List video devices</span>
+v4l2-ctl<span class="w"> </span>--list-devices
+
+<span class="c1"># View supported formats</span>
+v4l2-ctl<span class="w"> </span>-d<span class="w"> </span>/dev/video0<span class="w"> </span>--list-formats-ext
+
+<span class="c1"># Set camera parameters</span>
+v4l2-ctl<span class="w"> </span>-d<span class="w"> </span>/dev/video0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set-fmt-video<span class="o">=</span><span class="nv">width</span><span class="o">=</span><span class="m">1920</span>,height<span class="o">=</span><span class="m">1080</span>,pixelformat<span class="o">=</span>MJPG<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set-parm<span class="o">=</span><span class="m">30</span><span class="w">  </span><span class="c1"># 30fps</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Reading V4L2 camera in Python</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CAP_V4L2</span><span class="p">)</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_WIDTH</span><span class="p">,</span> <span class="mi">1920</span><span class="p">)</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_HEIGHT</span><span class="p">,</span> <span class="mi">1080</span><span class="p">)</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FPS</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">ret</span><span class="p">:</span>
+        <span class="c1"># Process frame</span>
+        <span class="n">process_frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="real-time-patch-preempt_rt">Real-Time Patch (PREEMPT_RT)<a class="headerlink" href="#real-time-patch-preempt_rt" title="Permanent link">&para;</a></h2>
+<h3 id="why-real-time-linux-is-needed">Why Real-Time Linux Is Needed<a class="headerlink" href="#why-real-time-linux-is-needed" title="Permanent link">&para;</a></h3>
+<p>Issues with the standard Linux kernel:</p>
+<ul>
+<li>Kernel code sections are non-preemptible (long lock-holding periods)</li>
+<li>Interrupt handling executes in hard interrupt context</li>
+<li>Scheduling latency is non-deterministic (occasional ms-level latency spikes)</li>
+</ul>
+<h3 id="key-preempt_rt-improvements">Key PREEMPT_RT Improvements<a class="headerlink" href="#key-preempt_rt-improvements" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Improvement</th>
+<th>Description</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fully preemptible kernel</td>
+<td>Nearly all kernel code can be preempted</td>
+<td>Reduced scheduling latency</td>
+</tr>
+<tr>
+<td>Threaded interrupts</td>
+<td>Hard interrupts converted to kernel threads</td>
+<td>Can be preempted by higher-priority tasks</td>
+</tr>
+<tr>
+<td>Spinlocks to mutexes</td>
+<td>Changed to sleepable locks</td>
+<td>Reduced non-preemptible time</td>
+</tr>
+<tr>
+<td>High-resolution timers</td>
+<td>hrtimer replaces jiffies</td>
+<td>Nanosecond-level timing precision</td>
+</tr>
+</tbody>
+</table>
+<h3 id="installation-and-configuration">Installation and Configuration<a class="headerlink" href="#installation-and-configuration" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install RT kernel on Ubuntu</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>linux-image-rt-amd64<span class="w">  </span><span class="c1"># x86</span>
+<span class="c1"># Or compile a custom RT kernel (Jetson)</span>
+<span class="c1"># Download NVIDIA&#39;s L4T source and apply the PREEMPT_RT patch</span>
+
+<span class="c1"># Verify RT kernel</span>
+uname<span class="w"> </span>-a
+<span class="c1"># Output should include &quot;PREEMPT_RT&quot;</span>
+
+<span class="c1"># Test real-time performance</span>
+sudo<span class="w"> </span>cyclictest<span class="w"> </span>-p<span class="w"> </span><span class="m">80</span><span class="w"> </span>-t<span class="w"> </span><span class="m">4</span><span class="w"> </span>-n<span class="w"> </span>-m<span class="w"> </span>-l<span class="w"> </span><span class="m">1000000</span>
+<span class="c1"># -p 80: priority 80</span>
+<span class="c1"># -t 4: 4 threads</span>
+<span class="c1"># -n: use nanosleep</span>
+<span class="c1"># -m: lock memory</span>
+<span class="c1"># Result: Min/Avg/Max latency (us)</span>
+</code></pre></div>
+<h3 id="real-time-performance-tuning">Real-Time Performance Tuning<a class="headerlink" href="#real-time-performance-tuning" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Isolate CPU cores for real-time tasks</span>
+<span class="c1"># Add to /boot/cmdline.txt:</span>
+<span class="nv">isolcpus</span><span class="o">=</span><span class="m">2</span>,3<span class="w"> </span><span class="nv">nohz_full</span><span class="o">=</span><span class="m">2</span>,3<span class="w"> </span><span class="nv">rcu_nocbs</span><span class="o">=</span><span class="m">2</span>,3
+
+<span class="c1"># 2. Disable CPU frequency scaling</span>
+<span class="nb">echo</span><span class="w"> </span>performance<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+
+<span class="c1"># 3. Lock memory (prevent page swapping)</span>
+<span class="c1"># In your program:</span>
+mlockall<span class="o">(</span>MCL_CURRENT<span class="w"> </span><span class="p">|</span><span class="w"> </span>MCL_FUTURE<span class="o">)</span><span class="p">;</span>
+
+<span class="c1"># 4. Set real-time thread priority</span>
+<span class="c1"># In ROS2:</span>
+<span class="c1"># ros2 run --prefix &quot;chrt -f 80&quot; my_package my_node</span>
+</code></pre></div>
+<h2 id="boot-process">Boot Process<a class="headerlink" href="#boot-process" title="Permanent link">&para;</a></h2>
+<h3 id="linux-boot-flow">Linux Boot Flow<a class="headerlink" href="#linux-boot-flow" title="Permanent link">&para;</a></h3>
+<div class="diagram">
+<svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-m0" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="var(--dia-stroke)"/></marker></defs>
+
+  <line x1="180" y1="95" x2="270" y2="95" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="410" y1="95" x2="500" y2="95" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="640" y1="95" x2="730" y2="95" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="870" y1="95" x2="960" y2="95" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="1100" y1="95" x2="1190" y2="95" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="1330" y1="95" x2="1420" y2="95" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <rect x="40" y="70" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="40" y="70" width="3" height="50" fill="var(--dia-accent)"/>
+  <text x="110" y="99" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Power On</text>
+  <rect x="270" y="70" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="270" y="70" width="3" height="50" fill="var(--dia-green)"/>
+  <text x="340" y="92" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Bootloader</text>
+  <text x="340" y="106" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">U-Boot/UEFI</text>
+  <rect x="500" y="70" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="500" y="70" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="570" y="92" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Kernel Loading</text>
+  <text x="570" y="106" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">vmlinuz</text>
+  <rect x="730" y="70" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="730" y="70" width="3" height="50" fill="var(--dia-accent)"/>
+  <text x="800" y="92" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">initramfs</text>
+  <text x="800" y="106" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Temporary Root FS</text>
+  <rect x="960" y="70" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="960" y="70" width="3" height="50" fill="var(--dia-green)"/>
+  <text x="1030" y="92" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">init/systemd PID</text>
+  <text x="1030" y="106" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">1</text>
+  <rect x="1190" y="70" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="1190" y="70" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="1260" y="92" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">System Services</text>
+  <text x="1260" y="106" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Start</text>
+  <rect x="1420" y="70" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="1420" y="70" width="3" height="50" fill="var(--dia-accent)"/>
+  <text x="1490" y="99" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">User Space Ready</text>
+</svg>
+</div>
+
+<h3 id="robot-auto-start-configuration">Robot Auto-Start Configuration<a class="headerlink" href="#robot-auto-start-configuration" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a boot-time auto-start service using systemd</span>
+sudo<span class="w"> </span>tee<span class="w"> </span>/etc/systemd/system/robot.service<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">[Unit]</span>
+<span class="s">Description=Robot ROS2 Launch</span>
+<span class="s">After=network.target</span>
+
+<span class="s">[Service]</span>
+<span class="s">Type=simple</span>
+<span class="s">User=robot</span>
+<span class="s">WorkingDirectory=/home/robot/ros2_ws</span>
+<span class="s">ExecStart=/bin/bash -c &quot;source install/setup.bash &amp;&amp; ros2 launch robot_bringup robot.launch.py&quot;</span>
+<span class="s">Restart=always</span>
+<span class="s">RestartSec=5</span>
+
+<span class="s"># Real-time priority settings</span>
+<span class="s">Nice=-10</span>
+<span class="s">CPUSchedulingPolicy=fifo</span>
+<span class="s">CPUSchedulingPriority=50</span>
+
+<span class="s">[Install]</span>
+<span class="s">WantedBy=multi-user.target</span>
+<span class="s">EOF</span>
+
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>robot.service
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>robot.service
+</code></pre></div>
+<h3 id="boot-time-optimization">Boot Time Optimization<a class="headerlink" href="#boot-time-optimization" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Optimization Method</th>
+<th>Time Saved</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Streamline initramfs</td>
+<td>2-5s</td>
+<td>Keep only necessary drivers</td>
+</tr>
+<tr>
+<td>Parallel service startup</td>
+<td>3-10s</td>
+<td>systemd parallelization</td>
+</tr>
+<tr>
+<td>Disable unnecessary services</td>
+<td>2-5s</td>
+<td>Turn off Bluetooth, printing, etc.</td>
+</tr>
+<tr>
+<td>Compress kernel</td>
+<td>1-2s</td>
+<td>Use LZ4 compression</td>
+</tr>
+<tr>
+<td>Use lightweight distro</td>
+<td>5-10s</td>
+<td>Ubuntu Core</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ipc-inter-process-communication">IPC (Inter-Process Communication)<a class="headerlink" href="#ipc-inter-process-communication" title="Permanent link">&para;</a></h2>
+<h3 id="linux-ipc-mechanisms">Linux IPC Mechanisms<a class="headerlink" href="#linux-ipc-mechanisms" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Latency</th>
+<th>Throughput</th>
+<th>Suitable Scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pipe</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Parent-child process communication</td>
+</tr>
+<tr>
+<td>Message Queue</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Structured message passing</td>
+</tr>
+<tr>
+<td>Shared Memory</td>
+<td>Low</td>
+<td>High</td>
+<td>Large data sharing</td>
+</tr>
+<tr>
+<td>Signal</td>
+<td>Low</td>
+<td>Low</td>
+<td>Simple notifications</td>
+</tr>
+<tr>
+<td>Unix Socket</td>
+<td>Medium</td>
+<td>High</td>
+<td>Local process communication</td>
+</tr>
+<tr>
+<td>TCP/UDP Socket</td>
+<td>High</td>
+<td>High</td>
+<td>Cross-machine communication</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ros2-dds-communication">ROS2 DDS Communication<a class="headerlink" href="#ros2-dds-communication" title="Permanent link">&para;</a></h3>
+<p>ROS2 uses DDS (Data Distribution Service) as its communication middleware:</p>
+<div class="highlight"><pre><span></span><code>ROS2 DDS Communication Stack:
++-- Within the same process: Zero-copy (pointer passing)
++-- Same host: Shared memory (Fast-DDS SHM transport)
++-- Cross-host: UDP multicast
+</code></pre></div>
+<p>See: <a href="https://jeffliulab.github.io/ai-notes/08_Embodied_Intelligence/09_Deployment/实时系统.md">Real-Time Systems</a> for more on real-time deployment.</p>
+<h2 id="common-linux-commands">Common Linux Commands<a class="headerlink" href="#common-linux-commands" title="Permanent link">&para;</a></h2>
+<h3 id="system-monitoring">System Monitoring<a class="headerlink" href="#system-monitoring" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># CPU and memory usage</span>
+htop<span class="w">                    </span><span class="c1"># Interactive process monitor</span>
+top<span class="w"> </span>-H<span class="w"> </span>-p<span class="w"> </span>&lt;pid&gt;<span class="w">         </span><span class="c1"># View threads of a process</span>
+
+<span class="c1"># System resources</span>
+free<span class="w"> </span>-h<span class="w">                 </span><span class="c1"># Memory usage</span>
+df<span class="w"> </span>-h<span class="w">                   </span><span class="c1"># Disk usage</span>
+nvidia-smi<span class="w">              </span><span class="c1"># GPU usage (use jtop for Jetson)</span>
+sudo<span class="w"> </span>jtop<span class="w">               </span><span class="c1"># Jetson system monitor</span>
+
+<span class="c1"># Real-time analysis</span>
+trace-cmd<span class="w"> </span>record<span class="w"> </span>-p<span class="w"> </span>function_graph<span class="w"> </span>-l<span class="w"> </span>schedule
+kernelshark<span class="w">             </span><span class="c1"># Graphical kernel trace analysis</span>
+</code></pre></div>
+<h3 id="performance-profiling">Performance Profiling<a class="headerlink" href="#performance-profiling" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># CPU performance profiling</span>
+sudo<span class="w"> </span>perf<span class="w"> </span>record<span class="w"> </span>-g<span class="w"> </span>./robot_node
+sudo<span class="w"> </span>perf<span class="w"> </span>report
+
+<span class="c1"># System call tracing</span>
+strace<span class="w"> </span>-f<span class="w"> </span>-e<span class="w"> </span><span class="nv">trace</span><span class="o">=</span>read,write<span class="w"> </span>./robot_node
+
+<span class="c1"># I/O analysis</span>
+iostat<span class="w"> </span>-x<span class="w"> </span><span class="m">1</span><span class="w">             </span><span class="c1"># I/O statistics</span>
+iotop<span class="w">                   </span><span class="c1"># I/O process monitor</span>
+</code></pre></div>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Processes provide isolation</strong>, <strong>threads provide concurrency</strong>; ROS2 component mode is the best practice</li>
+<li><strong>Linux CFS</strong> is suitable for general tasks; <strong>SCHED_FIFO</strong> is for real-time control</li>
+<li><strong>Device drivers</strong> provide user-space interfaces through <code>/dev</code> and <code>sysfs</code></li>
+<li><strong>PREEMPT_RT</strong> reduces Linux worst-case latency from ~10ms to ~100us</li>
+<li><strong>systemd</strong> manages auto-start of robot services</li>
+<li>Proper use of <strong>CPU isolation</strong> and <strong>memory locking</strong> improves real-time performance</li>
+</ol>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Bovet, D. P., &amp; Cesati, M. <em>Understanding the Linux Kernel</em></li>
+<li>Linux Kernel Documentation: <a href="https://www.kernel.org/doc/">https://www.kernel.org/doc/</a></li>
+<li>PREEMPT_RT Wiki: <a href="https://wiki.linuxfoundation.org/realtime/">https://wiki.linuxfoundation.org/realtime/</a></li>
+<li>ROS2 Real-time Working Group: <a href="https://ros-realtime.github.io/">https://ros-realtime.github.io/</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

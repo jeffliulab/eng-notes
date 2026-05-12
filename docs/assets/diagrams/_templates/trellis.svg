@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Trellis Template (DP grid: Forward / Viterbi / Beam Search)
+  使用方法:
+    1. 复制此文件,改时间步数 (T) 与状态空间 (|S|)
+    2. 节点位置: 时间间隔 160px, 状态间隔 120px
+    3. 完整连接: |S|×|S| 条边/时间步
+  风格参考: /home/ai-notes/参考html代码包括hmms的图.html §06
+-->
+<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="trellis-arr" markerWidth="8" markerHeight="8" refX="7" refY="2.5" orient="auto">
+      <path d="M0,0 L0,5 L7,2.5 z" fill="var(--dia-stroke-soft)"/>
+    </marker>
+  </defs>
+
+  <!-- ========== Time labels ========== -->
+  <text x="80"  y="30" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="13"
+        fill="var(--dia-stroke-soft)">t = 1</text>
+  <text x="240" y="30" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="13"
+        fill="var(--dia-stroke-soft)">t = 2</text>
+  <text x="400" y="30" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="13"
+        fill="var(--dia-stroke-soft)">t = 3</text>
+  <text x="560" y="30" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="13"
+        fill="var(--dia-stroke-soft)">t = 4</text>
+
+  <!-- ========== Row labels (左侧状态名) ========== -->
+  <text x="20" y="105" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-size="16" font-style="italic"
+        fill="var(--dia-stroke)">A</text>
+  <text x="20" y="225" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-size="16" font-style="italic"
+        fill="var(--dia-stroke)">B</text>
+
+  <!-- ========== Row A nodes (用 accent 色描边表示状态 A) ========== -->
+  <circle cx="80"  cy="100" r="22" fill="var(--dia-bg-card)" stroke="var(--dia-accent)" stroke-width="2"/>
+  <text x="80" y="105" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-accent)">α₁(A)</text>
+
+  <circle cx="240" cy="100" r="22" fill="var(--dia-bg-card)" stroke="var(--dia-accent)" stroke-width="2"/>
+  <text x="240" y="105" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-accent)">α₂(A)</text>
+
+  <circle cx="400" cy="100" r="22" fill="var(--dia-bg-card)" stroke="var(--dia-accent)" stroke-width="2"/>
+  <text x="400" y="105" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-accent)">α₃(A)</text>
+
+  <circle cx="560" cy="100" r="22" fill="var(--dia-bg-card)" stroke="var(--dia-accent)" stroke-width="2"/>
+  <text x="560" y="105" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-accent)">α₄(A)</text>
+
+  <!-- ========== Row B nodes (用 blue 描边表示状态 B) ========== -->
+  <circle cx="80"  cy="220" r="22" fill="var(--dia-bg-card)" stroke="var(--dia-blue)" stroke-width="2"/>
+  <text x="80" y="225" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-blue)">α₁(B)</text>
+
+  <circle cx="240" cy="220" r="22" fill="var(--dia-bg-card)" stroke="var(--dia-blue)" stroke-width="2"/>
+  <text x="240" y="225" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-blue)">α₂(B)</text>
+
+  <circle cx="400" cy="220" r="22" fill="var(--dia-bg-card)" stroke="var(--dia-blue)" stroke-width="2"/>
+  <text x="400" y="225" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-blue)">α₃(B)</text>
+
+  <circle cx="560" cy="220" r="22" fill="var(--dia-bg-card)" stroke="var(--dia-blue)" stroke-width="2"/>
+  <text x="560" y="225" text-anchor="middle"
+        font-family="JetBrains Mono, monospace" font-size="11"
+        fill="var(--dia-blue)">α₄(B)</text>
+
+  <!-- ========== Transition edges (全连接 |S|×|S|) ========== -->
+  <g stroke="var(--dia-stroke-soft)" stroke-width="1" fill="none" marker-end="url(#trellis-arr)">
+    <!-- t1 → t2 -->
+    <line x1="102" y1="100" x2="218" y2="100"/>
+    <line x1="102" y1="100" x2="218" y2="220"/>
+    <line x1="102" y1="220" x2="218" y2="100"/>
+    <line x1="102" y1="220" x2="218" y2="220"/>
+    <!-- t2 → t3 -->
+    <line x1="262" y1="100" x2="378" y2="100"/>
+    <line x1="262" y1="100" x2="378" y2="220"/>
+    <line x1="262" y1="220" x2="378" y2="100"/>
+    <line x1="262" y1="220" x2="378" y2="220"/>
+    <!-- t3 → t4 -->
+    <line x1="422" y1="100" x2="538" y2="100"/>
+    <line x1="422" y1="100" x2="538" y2="220"/>
+    <line x1="422" y1="220" x2="538" y2="100"/>
+    <line x1="422" y1="220" x2="538" y2="220"/>
+  </g>
+
+  <!-- ========== Observation row (底部, green 色, italic) ========== -->
+  <text x="80"  y="290" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-style="italic" font-size="13"
+        fill="var(--dia-green)">O₁</text>
+  <text x="240" y="290" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-style="italic" font-size="13"
+        fill="var(--dia-green)">O₂</text>
+  <text x="400" y="290" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-style="italic" font-size="13"
+        fill="var(--dia-green)">O₃</text>
+  <text x="560" y="290" text-anchor="middle"
+        font-family="Fraunces, Georgia, serif" font-style="italic" font-size="13"
+        fill="var(--dia-green)">O₄</text>
+
+  <!-- 观测向上的小箭头 (从 O 到对应时刻列底部) -->
+  <line x1="80"  y1="270" x2="80"  y2="245" stroke="var(--dia-green)" stroke-width="1.2"/>
+  <line x1="240" y1="270" x2="240" y2="245" stroke="var(--dia-green)" stroke-width="1.2"/>
+  <line x1="400" y1="270" x2="400" y2="245" stroke="var(--dia-green)" stroke-width="1.2"/>
+  <line x1="560" y1="270" x2="560" y2="245" stroke="var(--dia-green)" stroke-width="1.2"/>
+</svg>

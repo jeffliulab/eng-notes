@@ -1,0 +1,2240 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jeffliulab.github.io/eng-notes/en/05_Sensors_Perception/04_Force_Tactile/%E5%85%AD%E7%BB%B4%E5%8A%9B%E7%9F%A9%E4%BC%A0%E6%84%9F%E5%99%A8/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="../../../../05_Sensors_Perception/04_Force_Tactile/%E5%85%AD%E7%BB%B4%E5%8A%9B%E7%9F%A9%E4%BC%A0%E6%84%9F%E5%99%A8/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>6-Axis Force/Torque Sensor - Engineering Notes — 计算机工程与机器人工程</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../site_extra_styles/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#6-axis-forcetorque-sensor" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../" title="Engineering Notes — 计算机工程与机器人工程" class="md-header__button md-logo" aria-label="Engineering Notes — 计算机工程与机器人工程" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Engineering Notes — 计算机工程与机器人工程
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              6-Axis Force/Torque Sensor
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../../05_Sensors_Perception/04_Force_Tactile/%E5%85%AD%E7%BB%B4%E5%8A%9B%E7%9F%A9%E4%BC%A0%E6%84%9F%E5%99%A8/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jeffliulab/eng-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jeffliulab/eng-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_Foundations/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  工程基础
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../02_Computer_Engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  计算机工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../01_Electrical_Engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  电气工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../04_Mechanical_Engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  机械工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../03_Embedded_Systems/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  嵌入式系统
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  传感器与感知
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../06_Actuators_Motors/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  执行器与电机
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../07_Power_Energy/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  电源与能源
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../08_Communication_Networks/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  通信与网络
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../09_Control_HMI/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  控制与人机交互
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../10_Robot_Integration/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  机器人集成
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../11_Manufacturing_Frontiers/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  制造与前沿
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../" title="Engineering Notes — 计算机工程与机器人工程" class="md-nav__button md-logo" aria-label="Engineering Notes — 计算机工程与机器人工程" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Engineering Notes — 计算机工程与机器人工程
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jeffliulab/eng-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jeffliulab/eng-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../00_Foundations/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程基础
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工程基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../02_Computer_Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../01_Electrical_Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电气工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    电气工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../04_Mechanical_Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机械工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机械工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../03_Embedded_Systems/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    嵌入式系统
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    嵌入式系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    传感器与感知
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    传感器与感知
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../06_Actuators_Motors/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    执行器与电机
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    执行器与电机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../07_Power_Energy/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电源与能源
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    电源与能源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../08_Communication_Networks/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通信与网络
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    通信与网络
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../09_Control_HMI/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    控制与人机交互
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    控制与人机交互
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../10_Robot_Integration/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器人集成
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机器人集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_13" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../11_Manufacturing_Frontiers/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    制造与前沿
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    制造与前沿
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working Principle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Working Principle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strain-gauges-wheatstone-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strain Gauges + Wheatstone Bridge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-channel-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Channel Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calibration-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calibration Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calibration-matrix-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calibration Matrix Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#major-products" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Major Products
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Major Products">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ati-industrial-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ATI Industrial Automation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ATI Industrial Automation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ati-mini45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ATI Mini45
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ati-nano17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ATI Nano17
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ati-data-acquisition-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ATI Data Acquisition Systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onrobot-hex-e-hex-h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnRobot HEX-E / HEX-H
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#robotiq-ft-300-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Robotiq FT 300-S
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chinese-manufacturers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chinese Manufacturers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interfaces-and-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interfaces and Communication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interfaces and Communication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#analog-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analog Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digital Interfaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethercat-recommended-for-industrial-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EtherCAT (Recommended for Industrial Use)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ros-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROS Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mounting-location" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mounting Location
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mounting Location">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wrist-mount-most-common" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wrist Mount (Most Common)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gravity-compensation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gravity Compensation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typical-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical Applications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Typical Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precision-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precision Assembly
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#surface-polishinggrinding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Surface Polishing/Grinding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collision-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Collision Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-precautions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage Precautions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Content
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="6-axis-forcetorque-sensor">6-Axis Force/Torque Sensor<a class="headerlink" href="#6-axis-forcetorque-sensor" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The 6-axis Force/Torque (F/T) sensor is the most complete force sensing solution in robotics, capable of simultaneously measuring forces in three directions and torques in three directions:</p>
+<div class="arithmatex">\[\vec{W} = \begin{bmatrix} F_x &amp; F_y &amp; F_z &amp; M_x &amp; M_y &amp; M_z \end{bmatrix}^T\]</div>
+<p>These six components fully describe the generalized force (wrench) acting on a rigid body.</p>
+<hr />
+<h2 id="working-principle">Working Principle<a class="headerlink" href="#working-principle" title="Permanent link">&para;</a></h2>
+<h3 id="strain-gauges-wheatstone-bridge">Strain Gauges + Wheatstone Bridge<a class="headerlink" href="#strain-gauges-wheatstone-bridge" title="Permanent link">&para;</a></h3>
+<p>The core of a 6-axis F/T sensor is a set of precisely arranged strain gauges. The sensor's elastic body deforms slightly under force, and the strain gauges convert this deformation into resistance changes.</p>
+<p><strong>Single Wheatstone Bridge</strong>:</p>
+<div class="arithmatex">\[V_{out} = V_{ex} \left( \frac{R_1 R_3 - R_2 R_4}{(R_1 + R_2)(R_3 + R_4)} \right)\]</div>
+<p>When strain gauge resistance changes are very small (<span class="arithmatex">\(\Delta R \ll R\)</span>):</p>
+<div class="arithmatex">\[V_{out} \approx \frac{V_{ex} \cdot G_F \cdot \varepsilon}{4}\]</div>
+<p>where <span class="arithmatex">\(G_F\)</span> is the Gauge Factor and <span class="arithmatex">\(\varepsilon\)</span> is the strain.</p>
+<h3 id="multi-channel-measurement">Multi-Channel Measurement<a class="headerlink" href="#multi-channel-measurement" title="Permanent link">&para;</a></h3>
+<p>A 6-axis F/T sensor typically contains 6 to 8 Wheatstone bridge channels, each with different sensitivity to various force/torque combinations.</p>
+<p>The raw output is a voltage vector <span class="arithmatex">\(\vec{V} \in \mathbb{R}^n\)</span> (<span class="arithmatex">\(n \geq 6\)</span>).</p>
+<h3 id="calibration-matrix">Calibration Matrix<a class="headerlink" href="#calibration-matrix" title="Permanent link">&para;</a></h3>
+<p>The conversion from raw voltages to force/torque is performed through a calibration matrix <span class="arithmatex">\(C\)</span>:</p>
+<div class="arithmatex">\[\vec{F} = C \cdot \vec{V}\]</div>
+<p>where:</p>
+<ul>
+<li><span class="arithmatex">\(\vec{F} \in \mathbb{R}^6\)</span> -- force/torque output</li>
+<li><span class="arithmatex">\(C \in \mathbb{R}^{6 \times n}\)</span> -- Calibration Matrix</li>
+<li><span class="arithmatex">\(\vec{V} \in \mathbb{R}^n\)</span> -- raw voltage signals</li>
+</ul>
+<p><strong>Calibration Process</strong>:</p>
+<ol>
+<li>Apply known force/torque combinations (typically using precision weights)</li>
+<li>Record the corresponding voltage outputs</li>
+<li>Solve the calibration matrix via least squares:</li>
+</ol>
+<div class="arithmatex">\[C = F_{known} \cdot V_{measured}^+ \]</div>
+<p>where <span class="arithmatex">\(V_{measured}^+\)</span> is the pseudoinverse.</p>
+<h3 id="calibration-matrix-example">Calibration Matrix Example<a class="headerlink" href="#calibration-matrix-example" title="Permanent link">&para;</a></h3>
+<p>A typical <span class="arithmatex">\(6 \times 6\)</span> calibration matrix:</p>
+<div class="arithmatex">\[C = \begin{bmatrix}
+c_{11} &amp; c_{12} &amp; c_{13} &amp; c_{14} &amp; c_{15} &amp; c_{16} \\
+c_{21} &amp; c_{22} &amp; c_{23} &amp; c_{24} &amp; c_{25} &amp; c_{26} \\
+\vdots &amp; &amp; &amp; &amp; &amp; \vdots \\
+c_{61} &amp; c_{62} &amp; c_{63} &amp; c_{64} &amp; c_{65} &amp; c_{66}
+\end{bmatrix}\]</div>
+<p>Ideally, <span class="arithmatex">\(C\)</span> would be diagonal (fully decoupled channels), but in practice the off-diagonal elements are non-zero -- this is <strong>cross-talk</strong>. Good sensors have cross-talk error &lt; 2%.</p>
+<hr />
+<h2 id="major-products">Major Products<a class="headerlink" href="#major-products" title="Permanent link">&para;</a></h2>
+<h3 id="ati-industrial-automation">ATI Industrial Automation<a class="headerlink" href="#ati-industrial-automation" title="Permanent link">&para;</a></h3>
+<p>ATI is the "gold standard" for 6-axis F/T sensors, widely used in academic research and industry.</p>
+<h4 id="ati-mini45">ATI Mini45<a class="headerlink" href="#ati-mini45" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Range (Fx, Fy)</td>
+<td>±580 N</td>
+</tr>
+<tr>
+<td>Range (Fz)</td>
+<td>±1160 N</td>
+</tr>
+<tr>
+<td>Range (Mx, My)</td>
+<td>±20 N·m</td>
+</tr>
+<tr>
+<td>Range (Mz)</td>
+<td>±20 N·m</td>
+</tr>
+<tr>
+<td>Resolution (Fx, Fy)</td>
+<td>1/8 N</td>
+</tr>
+<tr>
+<td>Diameter</td>
+<td>45 mm</td>
+</tr>
+<tr>
+<td>Height</td>
+<td>15.7 mm</td>
+</tr>
+<tr>
+<td>Weight</td>
+<td>92 g</td>
+</tr>
+<tr>
+<td>Overload Protection</td>
+<td>5.5x ~ 20x</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ati-nano17">ATI Nano17<a class="headerlink" href="#ati-nano17" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Range (Fx, Fy)</td>
+<td>±12 N</td>
+</tr>
+<tr>
+<td>Range (Fz)</td>
+<td>±17 N</td>
+</tr>
+<tr>
+<td>Range (Mx, My)</td>
+<td>±120 N·mm</td>
+</tr>
+<tr>
+<td>Resolution (Fx, Fy)</td>
+<td>1/160 N</td>
+</tr>
+<tr>
+<td>Diameter</td>
+<td>17 mm</td>
+</tr>
+<tr>
+<td>Height</td>
+<td>14.5 mm</td>
+</tr>
+<tr>
+<td>Weight</td>
+<td>9.1 g</td>
+</tr>
+</tbody>
+</table>
+<p>The Nano17 provides high-precision measurement in an extremely small form factor, commonly used for dexterous hand fingertip force sensing.</p>
+<h4 id="ati-data-acquisition-systems">ATI Data Acquisition Systems<a class="headerlink" href="#ati-data-acquisition-systems" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Net F/T</strong>: Ethernet-based DAQ box, up to 7 kHz</li>
+<li><strong>DAQ F/T</strong>: USB interface, suitable for laboratory environments</li>
+<li><strong>EtherCAT F/T</strong>: Industrial bus interface, integrates with PLC/industrial controllers</li>
+</ul>
+<h3 id="onrobot-hex-e-hex-h">OnRobot HEX-E / HEX-H<a class="headerlink" href="#onrobot-hex-e-hex-h" title="Permanent link">&para;</a></h3>
+<p>OnRobot targets the collaborative robot market:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>HEX-E</th>
+<th>HEX-H</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Range (Fz)</td>
+<td>200 N</td>
+<td>600 N</td>
+</tr>
+<tr>
+<td>Range (Mz)</td>
+<td>5 N·m</td>
+<td>16 N·m</td>
+</tr>
+<tr>
+<td>Resolution</td>
+<td>0.2 N</td>
+<td>0.5 N</td>
+</tr>
+<tr>
+<td>Interface</td>
+<td>USB / UR-specific</td>
+<td>USB / UR-specific</td>
+</tr>
+<tr>
+<td>Feature</td>
+<td>High precision</td>
+<td>Large range</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Integration-friendly</strong>: OnRobot provides plug-and-play solutions for Universal Robots.</p>
+<h3 id="robotiq-ft-300-s">Robotiq FT 300-S<a class="headerlink" href="#robotiq-ft-300-s" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Range (Fx, Fy, Fz)</td>
+<td>±300 N</td>
+</tr>
+<tr>
+<td>Range (Mx, My, Mz)</td>
+<td>±30 N·m</td>
+</tr>
+<tr>
+<td>Resolution</td>
+<td>0.2 N / 0.002 N·m</td>
+</tr>
+<tr>
+<td>Interface</td>
+<td>USB / UR / ROS</td>
+</tr>
+<tr>
+<td>Sampling Rate</td>
+<td>100 Hz</td>
+</tr>
+</tbody>
+</table>
+<h3 id="chinese-manufacturers">Chinese Manufacturers<a class="headerlink" href="#chinese-manufacturers" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Hypersen</strong>: HPS-FT series, EtherCAT interface</li>
+<li><strong>Kunwei Technology</strong>: KWR series, good cost-performance ratio</li>
+<li><strong>SRI (Sunrise Instruments)</strong>: 6-axis F/T sensors targeting collaborative robots</li>
+</ul>
+<hr />
+<h2 id="interfaces-and-communication">Interfaces and Communication<a class="headerlink" href="#interfaces-and-communication" title="Permanent link">&para;</a></h2>
+<h3 id="analog-output">Analog Output<a class="headerlink" href="#analog-output" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Each channel outputs ±10V or ±5V analog voltage</li>
+<li>Requires external ADC (16-bit or higher recommended)</li>
+<li>Advantage: Lowest latency</li>
+<li>Disadvantage: Susceptible to noise, complex wiring</li>
+</ul>
+<h3 id="digital-interfaces">Digital Interfaces<a class="headerlink" href="#digital-interfaces" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Sensor ──[SPI/I2C]──&gt; MCU ──[USB/Ethernet]──&gt; PC
+
+Sensor ──[EtherCAT]──&gt; Industrial Controller
+
+Sensor ──[USB]──&gt; PC (laboratory setup)
+</code></pre></div>
+<h3 id="ethercat-recommended-for-industrial-use">EtherCAT (Recommended for Industrial Use)<a class="headerlink" href="#ethercat-recommended-for-industrial-use" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Deterministic communication, 1 ms cycle</li>
+<li>Multi-device daisy-chain topology</li>
+<li>Shares the same bus as servo drives</li>
+<li>ATI EtherCAT F/T: Connects directly to EtherCAT bus</li>
+</ul>
+<h3 id="ros-integration">ROS Integration<a class="headerlink" href="#ros-integration" title="Permanent link">&para;</a></h3>
+<p>ATI sensor ROS driver:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Typical ROS2 node publishing force/torque data</span>
+<span class="c1"># Message type: geometry_msgs/msg/WrenchStamped</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">WrenchStamped</span>
+
+<span class="n">msg</span> <span class="o">=</span> <span class="n">WrenchStamped</span><span class="p">()</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">frame_id</span> <span class="o">=</span> <span class="s2">&quot;ft_sensor_link&quot;</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">wrench</span><span class="o">.</span><span class="n">force</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">wrench</span><span class="o">.</span><span class="n">force</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">F</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">wrench</span><span class="o">.</span><span class="n">force</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">F</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">wrench</span><span class="o">.</span><span class="n">torque</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">wrench</span><span class="o">.</span><span class="n">torque</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">F</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">wrench</span><span class="o">.</span><span class="n">torque</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">F</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">publisher</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="mounting-location">Mounting Location<a class="headerlink" href="#mounting-location" title="Permanent link">&para;</a></h2>
+<h3 id="wrist-mount-most-common">Wrist Mount (Most Common)<a class="headerlink" href="#wrist-mount-most-common" title="Permanent link">&para;</a></h3>
+<p>The sensor is mounted between the robot arm's end flange and the end-effector:</p>
+<div class="highlight"><pre><span></span><code>[Joint 6 Flange] ── [6-axis F/T Sensor] ── [End-Effector/Gripper]
+</code></pre></div>
+<p>This measures the interaction force between the end-effector and the environment.</p>
+<p><strong>Note</strong>: The sensor reading includes the weight of the end-effector (gravity compensation required).</p>
+<h3 id="gravity-compensation">Gravity Compensation<a class="headerlink" href="#gravity-compensation" title="Permanent link">&para;</a></h3>
+<p>After installation, gravity compensation is needed to eliminate the effect of the end-effector's weight:</p>
+<div class="arithmatex">\[\vec{F}_{ext} = \vec{F}_{raw} - \vec{F}_{gravity}(\theta)\]</div>
+<p>Gravity compensation steps:</p>
+<ol>
+<li>Record sensor readings at multiple orientations without load</li>
+<li>Fit the end-effector mass <span class="arithmatex">\(m\)</span> and center of mass position <span class="arithmatex">\(\vec{r}_{CoM}\)</span></li>
+<li>Compute and subtract the gravity term in real-time:</li>
+</ol>
+<div class="arithmatex">\[\vec{F}_{gravity} = \begin{bmatrix} m \vec{g}_{sensor} \\ \vec{r}_{CoM} \times m \vec{g}_{sensor} \end{bmatrix}\]</div>
+<p>where <span class="arithmatex">\(\vec{g}_{sensor}\)</span> is the gravity acceleration projected into the sensor frame (varies with robot orientation).</p>
+<hr />
+<h2 id="typical-applications">Typical Applications<a class="headerlink" href="#typical-applications" title="Permanent link">&para;</a></h2>
+<h3 id="precision-assembly">Precision Assembly<a class="headerlink" href="#precision-assembly" title="Permanent link">&para;</a></h3>
+<p>Peg-in-Hole assembly is a classic application of 6-axis F/T sensors:</p>
+<ol>
+<li><strong>Search phase</strong>: Spiral search, detect contact force</li>
+<li><strong>Alignment phase</strong>: Adjust orientation based on torque information</li>
+<li><strong>Insertion phase</strong>: Apply constant axial force, zero lateral torques</li>
+</ol>
+<p>Criterion: <span class="arithmatex">\(|F_z| &gt; F_{threshold}\)</span> and <span class="arithmatex">\(\sqrt{M_x^2 + M_y^2} &lt; M_{tolerance}\)</span></p>
+<h3 id="surface-polishinggrinding">Surface Polishing/Grinding<a class="headerlink" href="#surface-polishinggrinding" title="Permanent link">&para;</a></h3>
+<p>Maintain constant normal contact force:</p>
+<div class="arithmatex">\[F_{normal} = F_{desired} \pm \Delta F_{tolerance}\]</div>
+<p>The controller adjusts position based on force error:</p>
+<div class="arithmatex">\[\Delta x = K_p (F_{desired} - F_{measured}) + K_i \int (F_{desired} - F_{measured}) dt\]</div>
+<h3 id="collision-detection">Collision Detection<a class="headerlink" href="#collision-detection" title="Permanent link">&para;</a></h3>
+<p>Detect collisions through force transients:</p>
+<div class="arithmatex">\[|\vec{F}_{ext}| &gt; F_{collision\_threshold} \Rightarrow \text{trigger safety stop}\]</div>
+<hr />
+<h2 id="usage-precautions">Usage Precautions<a class="headerlink" href="#usage-precautions" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Avoid overload</strong>: Exceeding the range may permanently damage the sensor</li>
+<li><strong>Temperature drift</strong>: Warm up for 15-30 minutes after powering on</li>
+<li><strong>Periodic zeroing (Biasing)</strong>: Eliminate zero-point drift</li>
+<li><strong>Cable strain relief</strong>: Prevent cable tension from affecting measurements</li>
+<li><strong>Mounting torque</strong>: Use a torque wrench per manufacturer specifications</li>
+<li><strong>Calibration verification</strong>: Periodically verify accuracy with known weights</li>
+</ol>
+<hr />
+<h2 id="related-content">Related Content<a class="headerlink" href="#related-content" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://jeffliulab.github.io/ai-notes/08_Embodied_Intelligence/07_Hardware/传感器.md">Sensor Fundamentals</a> -- Broader sensor classification</li>
+<li><a href="../%E5%8A%9B%E6%8E%A7%E5%BA%94%E7%94%A8/">Force Control Applications</a> -- Impedance control and force-guided methods</li>
+</ul>
+<hr />
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li>ATI Industrial Automation: <a href="https://www.ati-ia.com/">ati-ia.com</a></li>
+<li>OnRobot: <a href="https://onrobot.com/">onrobot.com</a></li>
+<li>Robotiq: <a href="https://robotiq.com/">robotiq.com</a></li>
+<li>Siciliano, B. et al., <em>Robotics</em>, Ch. 9: Force Control</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

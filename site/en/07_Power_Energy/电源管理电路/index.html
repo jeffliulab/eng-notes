@@ -1,0 +1,2470 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jeffliulab.github.io/eng-notes/en/07_Power_Energy/%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86%E7%94%B5%E8%B7%AF/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="../../../07_Power_Energy/%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86%E7%94%B5%E8%B7%AF/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Power Management Circuits - Engineering Notes — 计算机工程与机器人工程</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../site_extra_styles/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#power-management-circuits" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="Engineering Notes — 计算机工程与机器人工程" class="md-header__button md-logo" aria-label="Engineering Notes — 计算机工程与机器人工程" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Engineering Notes — 计算机工程与机器人工程
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Power Management Circuits
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../07_Power_Energy/%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86%E7%94%B5%E8%B7%AF/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jeffliulab/eng-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jeffliulab/eng-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../00_Foundations/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  工程基础
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02_Computer_Engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  计算机工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01_Electrical_Engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  电气工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04_Mechanical_Engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  机械工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03_Embedded_Systems/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  嵌入式系统
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05_Sensors_Perception/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  传感器与感知
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../06_Actuators_Motors/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  执行器与电机
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  电源与能源
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../08_Communication_Networks/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  通信与网络
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../09_Control_HMI/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  控制与人机交互
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../10_Robot_Integration/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  机器人集成
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../11_Manufacturing_Frontiers/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  制造与前沿
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Engineering Notes — 计算机工程与机器人工程" class="md-nav__button md-logo" aria-label="Engineering Notes — 计算机工程与机器人工程" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Engineering Notes — 计算机工程与机器人工程
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jeffliulab/eng-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jeffliulab/eng-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../00_Foundations/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程基础
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工程基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../02_Computer_Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../01_Electrical_Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电气工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    电气工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../04_Mechanical_Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机械工程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机械工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../03_Embedded_Systems/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    嵌入式系统
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    嵌入式系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../05_Sensors_Perception/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    传感器与感知
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    传感器与感知
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../06_Actuators_Motors/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    执行器与电机
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    执行器与电机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电源与能源
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    电源与能源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../08_Communication_Networks/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通信与网络
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    通信与网络
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../09_Control_HMI/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    控制与人机交互
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    控制与人机交互
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../10_Robot_Integration/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器人集成
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机器人集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_13" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../11_Manufacturing_Frontiers/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    制造与前沿
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    制造与前沿
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bms-battery-management-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMS (Battery Management System)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BMS (Battery Management System)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bms-core-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMS Core Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protection-thresholds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protection Thresholds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cell-balancing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cell Balancing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-bms-chipsmodules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common BMS Chips/Modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dc-dc-converters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DC-DC Converters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DC-DC Converters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buck-step-down-converter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buck (Step-Down) Converter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boost-step-up-converter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boost (Step-Up) Converter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buck-boost-converter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buck-Boost Converter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ldo-low-dropout-regulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LDO (Low Dropout Regulator)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LDO (Low Dropout Regulator)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ldo-vs-switching-regulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LDO vs. Switching Regulator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-ldos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common LDOs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-choose-ldo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Choose LDO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-choose-dc-dc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Choose DC-DC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hot-swap-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hot-Swap Circuit
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hot-Swap Circuit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Challenges
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hot-swap-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hot-Swap Controllers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#design-essentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Essentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#efuse-electronic-fuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        eFuse (Electronic Fuse)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="eFuse (Electronic Fuse)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advantages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advantages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-efuse-chips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common eFuse Chips
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typical-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical Application
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power-pcb-design-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power PCB Design Guidelines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Power PCB Design Guidelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#layout-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layout Principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trace-current-capacity-estimate-1-oz-copper-outer-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trace Current Capacity Estimate (1 oz copper, outer layer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="power-management-circuits">Power Management Circuits<a class="headerlink" href="#power-management-circuits" title="Permanent link">&para;</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Power management circuits bridge batteries and loads, handling voltage conversion, current distribution, and safety protection. This section covers the design principles and selection of BMS, DC-DC converters, LDO regulators, and protection circuits.</p>
+<h2 id="bms-battery-management-system">BMS (Battery Management System)<a class="headerlink" href="#bms-battery-management-system" title="Permanent link">&para;</a></h2>
+<p>A BMS is an essential component for multi-cell lithium battery packs, responsible for monitoring each cell's state and providing protection.</p>
+<h3 id="bms-core-functions">BMS Core Functions<a class="headerlink" href="#bms-core-functions" title="Permanent link">&para;</a></h3>
+<div class="diagram">
+<svg viewBox="0 0 560 860" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-m0" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="var(--dia-stroke)"/></marker></defs>
+
+  <line x1="280" y1="120" x2="110" y2="210" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="120" x2="280" y2="210" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="120" x2="450" y2="210" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="120" x2="110" y2="350" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="120" x2="280" y2="350" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="120" x2="450" y2="350" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="400" x2="110" y2="490" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="400" x2="280" y2="490" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="400" x2="450" y2="490" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="400" x2="110" y2="630" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="280" y1="400" x2="280" y2="630" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="110" y1="400" x2="450" y2="630" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="110" y1="400" x2="280" y2="770" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <rect x="210" y="70" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="210" y="70" width="3" height="50" fill="var(--dia-accent)"/>
+  <text x="280" y="92" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">BMS Battery</text>
+  <text x="280" y="106" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Management System</text>
+  <rect x="40" y="210" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="40" y="210" width="3" height="50" fill="var(--dia-green)"/>
+  <text x="110" y="225" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Voltage</text>
+  <text x="110" y="239" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Monitoring Cell</text>
+  <text x="110" y="253" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Voltage</text>
+  <rect x="210" y="210" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="210" y="210" width="3" height="50" fill="var(--dia-green)"/>
+  <text x="280" y="232" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Temperature</text>
+  <text x="280" y="246" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Monitoring</text>
+  <rect x="380" y="210" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="380" y="210" width="3" height="50" fill="var(--dia-green)"/>
+  <text x="450" y="232" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Current</text>
+  <text x="450" y="246" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Monitoring</text>
+  <rect x="40" y="350" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="40" y="350" width="3" height="50" fill="var(--dia-green)"/>
+  <text x="110" y="379" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Cell Balancing</text>
+  <rect x="210" y="350" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="210" y="350" width="3" height="50" fill="var(--dia-green)"/>
+  <text x="280" y="372" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Protection</text>
+  <text x="280" y="386" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Functions</text>
+  <rect x="380" y="350" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="380" y="350" width="3" height="50" fill="var(--dia-green)"/>
+  <text x="450" y="365" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Communication</text>
+  <text x="450" y="379" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Interface</text>
+  <text x="450" y="393" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">SMBus/CAN</text>
+  <rect x="40" y="490" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="40" y="490" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="110" y="512" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Overvoltage</text>
+  <text x="110" y="526" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Protection OVP</text>
+  <rect x="210" y="490" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="210" y="490" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="280" y="512" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Undervoltage</text>
+  <text x="280" y="526" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Protection UVP</text>
+  <rect x="380" y="490" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="380" y="490" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="450" y="512" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Overcurrent</text>
+  <text x="450" y="526" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Protection OCP</text>
+  <rect x="40" y="630" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="40" y="630" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="110" y="652" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Over-Temperature</text>
+  <text x="110" y="666" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Protection OTP</text>
+  <rect x="210" y="630" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="210" y="630" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="280" y="652" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Short Circuit</text>
+  <text x="280" y="666" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Protection SCP</text>
+  <rect x="380" y="630" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="380" y="630" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="450" y="659" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Passive Balancing</text>
+  <rect x="210" y="770" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="210" y="770" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="280" y="799" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Active Balancing</text>
+</svg>
+</div>
+
+<h3 id="protection-thresholds">Protection Thresholds<a class="headerlink" href="#protection-thresholds" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Protection Function</th>
+<th>Typical Threshold (Li-ion)</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Overvoltage (OVP)</td>
+<td>4.25–4.30V/cell</td>
+<td>Disconnect charging</td>
+</tr>
+<tr>
+<td>Undervoltage (UVP)</td>
+<td>2.5–3.0V/cell</td>
+<td>Disconnect discharge</td>
+</tr>
+<tr>
+<td>Overcurrent (OCP)</td>
+<td>110–150% of setpoint</td>
+<td>Disconnect output</td>
+</tr>
+<tr>
+<td>Short circuit (SCP)</td>
+<td>Several times OCP threshold</td>
+<td>Immediate disconnect</td>
+</tr>
+<tr>
+<td>Over-temperature (OTP)</td>
+<td>60–70°C</td>
+<td>Disconnect charge/discharge</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cell-balancing">Cell Balancing<a class="headerlink" href="#cell-balancing" title="Permanent link">&para;</a></h3>
+<p><strong>Passive Balancing</strong>: Dissipates excess energy from high-voltage cells through resistors</p>
+<ul>
+<li>Principle: <span class="arithmatex">\(P_{dissipated} = \frac{(V_{cell} - V_{target})^2}{R_{balance}}\)</span></li>
+<li>Pros: Simple, low cost</li>
+<li>Cons: Energy wasted as heat</li>
+</ul>
+<p><strong>Active Balancing</strong>: Transfers energy from high-voltage cells to low-voltage cells</p>
+<ul>
+<li>Methods: Inductive coupling, capacitor switching, transformer</li>
+<li>Pros: High efficiency (&gt;90%)</li>
+<li>Cons: Complex circuitry, higher cost</li>
+</ul>
+<h3 id="common-bms-chipsmodules">Common BMS Chips/Modules<a class="headerlink" href="#common-bms-chipsmodules" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Cells</th>
+<th>Features</th>
+<th>Suitable Scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HX-2S-01</td>
+<td>2S</td>
+<td>Low-cost module, 7.4V</td>
+<td>Small robots</td>
+</tr>
+<tr>
+<td>HX-3S-01</td>
+<td>3S</td>
+<td>11.1V, common RC battery</td>
+<td>Medium robots</td>
+</tr>
+<tr>
+<td>BQ76920 (TI)</td>
+<td>3–5S</td>
+<td>Integrated AFE, I2C communication</td>
+<td>Professional grade</td>
+</tr>
+<tr>
+<td>BQ76930 (TI)</td>
+<td>6–10S</td>
+<td>High cell count support</td>
+<td>Large battery packs</td>
+</tr>
+<tr>
+<td>BQ76940 (TI)</td>
+<td>9–15S</td>
+<td>High-voltage packs</td>
+<td>EVs / large robots</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dc-dc-converters">DC-DC Converters<a class="headerlink" href="#dc-dc-converters" title="Permanent link">&para;</a></h2>
+<p>DC-DC converters transform one DC voltage to another, forming the core of a robot power system.</p>
+<h3 id="buck-step-down-converter">Buck (Step-Down) Converter<a class="headerlink" href="#buck-step-down-converter" title="Permanent link">&para;</a></h3>
+<p>Reduces high voltage to low voltage, with efficiency typically 85–95%.</p>
+<p><strong>Operating Principle</strong>:</p>
+<p>A high-frequency switch (MOSFET) chops the input voltage, and an LC filter produces a stable lower output voltage.</p>
+<div class="arithmatex">\[V_{out} = D \times V_{in}\]</div>
+<p>Where <span class="arithmatex">\(D\)</span> is the duty cycle, <span class="arithmatex">\(0 &lt; D &lt; 1\)</span>.</p>
+<p><strong>Common Buck Modules/Chips</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Input Range</th>
+<th>Output</th>
+<th>Max Current</th>
+<th>Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LM2596</td>
+<td>4.5–40V</td>
+<td>1.2–37V adjustable</td>
+<td>3A</td>
+<td>Classic module, ~$2</td>
+</tr>
+<tr>
+<td>MP1584</td>
+<td>4.5–28V</td>
+<td>0.8–20V adjustable</td>
+<td>3A</td>
+<td>Compact, efficient</td>
+</tr>
+<tr>
+<td>LM2596HV</td>
+<td>4.5–60V</td>
+<td>1.2–57V adjustable</td>
+<td>3A</td>
+<td>High voltage input</td>
+</tr>
+<tr>
+<td>TPS5430</td>
+<td>5.5–36V</td>
+<td>Adjustable</td>
+<td>3A</td>
+<td>TI industrial grade</td>
+</tr>
+<tr>
+<td>XL4015</td>
+<td>8–36V</td>
+<td>1.25–32V adjustable</td>
+<td>5A</td>
+<td>High current</td>
+</tr>
+<tr>
+<td>LTC3780</td>
+<td>5–32V</td>
+<td>1–30V</td>
+<td>10A</td>
+<td>Buck-boost</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Typical Applications</strong>: 24V battery → 12V (motors), 24V → 5V (Jetson/RPi)</p>
+<h3 id="boost-step-up-converter">Boost (Step-Up) Converter<a class="headerlink" href="#boost-step-up-converter" title="Permanent link">&para;</a></h3>
+<p>Raises low voltage to high voltage.</p>
+<div class="arithmatex">\[V_{out} = \frac{V_{in}}{1 - D}\]</div>
+<p><strong>Common Boost Modules/Chips</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Input Range</th>
+<th>Output Range</th>
+<th>Max Current</th>
+<th>Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XL6009</td>
+<td>3–32V</td>
+<td>5–35V</td>
+<td>4A</td>
+<td>Boost module</td>
+</tr>
+<tr>
+<td>MT3608</td>
+<td>2–24V</td>
+<td>5–28V</td>
+<td>2A</td>
+<td>Micro boost</td>
+</tr>
+<tr>
+<td>TPS61088</td>
+<td>2.7–12V</td>
+<td>4.5–12.6V</td>
+<td>10A</td>
+<td>TI high efficiency</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Typical Applications</strong>: 3.7V Li-cell → 5V (USB power), 5V → 12V (small applications)</p>
+<h3 id="buck-boost-converter">Buck-Boost Converter<a class="headerlink" href="#buck-boost-converter" title="Permanent link">&para;</a></h3>
+<p>Used when input voltage may be higher or lower than output voltage.</p>
+<ul>
+<li><strong>SEPIC topology</strong>: Output same polarity as input</li>
+<li><strong>Inverting Buck-Boost</strong>: Output has negative polarity</li>
+<li><strong>Four-switch Buck-Boost</strong>: Highest efficiency but complex</li>
+</ul>
+<p>Typical chips: LTC3780, TPS63000 series.</p>
+<h2 id="ldo-low-dropout-regulator">LDO (Low Dropout Regulator)<a class="headerlink" href="#ldo-low-dropout-regulator" title="Permanent link">&para;</a></h2>
+<p>An LDO linearly regulates input voltage to a stable output voltage via a pass transistor.</p>
+<h3 id="ldo-vs-switching-regulator">LDO vs. Switching Regulator<a class="headerlink" href="#ldo-vs-switching-regulator" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>LDO</th>
+<th>DC-DC (Switching)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Efficiency</td>
+<td><span class="arithmatex">\(\eta = \frac{V_{out}}{V_{in}}\)</span></td>
+<td>85–95%</td>
+</tr>
+<tr>
+<td>Noise</td>
+<td>Very low (uV level)</td>
+<td>Higher (mV-level ripple)</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>Low</td>
+<td>Medium-high</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>Small</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Heat dissipation</td>
+<td><span class="arithmatex">\(P_{loss} = (V_{in}-V_{out}) \times I_{out}\)</span></td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Suitable for</td>
+<td>Low dropout, small current</td>
+<td>Large dropout, large current</td>
+</tr>
+</tbody>
+</table>
+<h3 id="common-ldos">Common LDOs<a class="headerlink" href="#common-ldos" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Output Voltage</th>
+<th>Max Current</th>
+<th>Dropout</th>
+<th>Package</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AMS1117-3.3</td>
+<td>3.3V</td>
+<td>1A</td>
+<td>1.0V</td>
+<td>SOT-223</td>
+</tr>
+<tr>
+<td>AMS1117-5.0</td>
+<td>5.0V</td>
+<td>1A</td>
+<td>1.0V</td>
+<td>SOT-223</td>
+</tr>
+<tr>
+<td>AP2112K-3.3</td>
+<td>3.3V</td>
+<td>600 mA</td>
+<td>250 mV</td>
+<td>SOT-23-5</td>
+</tr>
+<tr>
+<td>MCP1700-3302</td>
+<td>3.3V</td>
+<td>250 mA</td>
+<td>178 mV</td>
+<td>SOT-23</td>
+</tr>
+<tr>
+<td>TLV1117-33</td>
+<td>3.3V</td>
+<td>800 mA</td>
+<td>1.1V</td>
+<td>SOT-223</td>
+</tr>
+</tbody>
+</table>
+<h3 id="when-to-choose-ldo">When to Choose LDO<a class="headerlink" href="#when-to-choose-ldo" title="Permanent link">&para;</a></h3>
+<ul>
+<li>5V → 3.3V (low dropout, efficiency <span class="arithmatex">\(\frac{3.3}{5} = 66\%\)</span> is acceptable, current &lt;1A)</li>
+<li>Low noise requirements (analog sensors, ADC reference voltage)</li>
+<li>Space-constrained, cost-sensitive</li>
+</ul>
+<h3 id="when-to-choose-dc-dc">When to Choose DC-DC<a class="headerlink" href="#when-to-choose-dc-dc" title="Permanent link">&para;</a></h3>
+<ul>
+<li>24V → 5V (large dropout, LDO efficiency only <span class="arithmatex">\(\frac{5}{24} = 21\%\)</span>, severe heat)</li>
+<li>High-current loads (&gt;1A)</li>
+<li>Boost needed</li>
+</ul>
+<h2 id="hot-swap-circuit">Hot-Swap Circuit<a class="headerlink" href="#hot-swap-circuit" title="Permanent link">&para;</a></h2>
+<p>Allows safe insertion and removal of power supplies or batteries while the system is running.</p>
+<h3 id="key-challenges">Key Challenges<a class="headerlink" href="#key-challenges" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Inrush current</strong>: Charging current surge to output capacitors</li>
+<li><strong>Arcing</strong>: Arc discharge at connector contacts</li>
+<li><strong>Voltage droop</strong>: Brief power interruption during switching</li>
+</ul>
+<h3 id="hot-swap-controllers">Hot-Swap Controllers<a class="headerlink" href="#hot-swap-controllers" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Voltage Range</th>
+<th>Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LTC4352</td>
+<td>2.9–18V</td>
+<td>Ideal diode controller</td>
+</tr>
+<tr>
+<td>TPS2490</td>
+<td>9–80V</td>
+<td>Wide voltage hot-swap</td>
+</tr>
+<tr>
+<td>LM5069</td>
+<td>9–80V</td>
+<td>Programmable current limit</td>
+</tr>
+</tbody>
+</table>
+<h3 id="design-essentials">Design Essentials<a class="headerlink" href="#design-essentials" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>V_IN ---[eFuse/Hot-Swap IC]---+---[DC-DC]--- V_OUT
+                              |
+                          C_bulk (large buffer capacitor)
+                              |
+                             GND
+</code></pre></div>
+<ul>
+<li><strong>Soft start</strong>: Controls MOSFET gate ramp rate to limit inrush current</li>
+<li><strong>Current limiting</strong>: Sets maximum current, <span class="arithmatex">\(I_{limit} = \frac{V_{sense}}{R_{sense}}\)</span></li>
+<li><strong>Large buffer capacitor</strong>: Maintains power during source switching</li>
+</ul>
+<h2 id="efuse-electronic-fuse">eFuse (Electronic Fuse)<a class="headerlink" href="#efuse-electronic-fuse" title="Permanent link">&para;</a></h2>
+<p>An eFuse uses MOSFETs to replace traditional fuses, providing resettable overcurrent protection.</p>
+<h3 id="advantages">Advantages<a class="headerlink" href="#advantages" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Resettable</strong>: Automatically recovers after overcurrent, no replacement needed</li>
+<li><strong>Programmable</strong>: Trip current set by external resistor</li>
+<li><strong>Fast response</strong>: Microsecond-level cutoff, far faster than traditional fuses</li>
+</ul>
+<h3 id="common-efuse-chips">Common eFuse Chips<a class="headerlink" href="#common-efuse-chips" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Voltage Range</th>
+<th>Current Range</th>
+<th>Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TPS2596 (TI)</td>
+<td>2.7–19V</td>
+<td>0.1–5.2A</td>
+<td>SOT-23, compact</td>
+</tr>
+<tr>
+<td>NIS5135 (ON)</td>
+<td>2.5–23V</td>
+<td>0.2–5A</td>
+<td>Adjustable current limit</td>
+</tr>
+<tr>
+<td>STEF01 (ST)</td>
+<td>4–48V</td>
+<td>0.2–6A</td>
+<td>Wide voltage</td>
+</tr>
+</tbody>
+</table>
+<h3 id="typical-application">Typical Application<a class="headerlink" href="#typical-application" title="Permanent link">&para;</a></h3>
+<p>Providing independent eFuse protection per subsystem for fault isolation:</p>
+<div class="diagram">
+<svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-m0" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="var(--dia-stroke)"/></marker></defs>
+
+  <line x1="180" y1="175" x2="270" y2="95" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="180" y1="175" x2="270" y2="175" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="180" y1="175" x2="270" y2="255" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="180" y1="175" x2="500" y2="175" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="410" y1="95" x2="730" y2="95" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="410" y1="175" x2="730" y2="175" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="410" y1="255" x2="730" y2="255" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <line x1="640" y1="175" x2="960" y2="175" stroke="var(--dia-stroke)" stroke-width="1.5" marker-end="url(#arr-m0)"/>
+  <rect x="40" y="150" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="40" y="150" width="3" height="50" fill="var(--dia-accent)"/>
+  <text x="110" y="179" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">24V Bus</text>
+  <rect x="270" y="70" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="270" y="70" width="3" height="50" fill="var(--dia-green)"/>
+  <text x="340" y="99" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">eFuse 1 5A</text>
+  <rect x="270" y="150" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="270" y="150" width="3" height="50" fill="var(--dia-green)"/>
+  <text x="340" y="179" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">eFuse 2 3A</text>
+  <rect x="270" y="230" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="270" y="230" width="3" height="50" fill="var(--dia-green)"/>
+  <text x="340" y="259" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">eFuse 3 2A</text>
+  <rect x="500" y="150" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="500" y="150" width="3" height="50" fill="var(--dia-green)"/>
+  <text x="570" y="179" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">eFuse 4 1A</text>
+  <rect x="730" y="70" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="730" y="70" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="800" y="99" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Motor Drivers</text>
+  <rect x="730" y="150" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="730" y="150" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="800" y="179" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Jetson Orin</text>
+  <rect x="730" y="230" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="730" y="230" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="800" y="259" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">LiDAR</text>
+  <rect x="960" y="150" width="140" height="50" rx="4" fill="var(--dia-bg-card)" stroke="var(--dia-stroke)" stroke-width="1.6"/>
+  <rect x="960" y="150" width="3" height="50" fill="var(--dia-blue)"/>
+  <text x="1030" y="179" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="var(--dia-stroke)">Sensors/MCU</text>
+</svg>
+</div>
+
+<h2 id="power-pcb-design-guidelines">Power PCB Design Guidelines<a class="headerlink" href="#power-pcb-design-guidelines" title="Permanent link">&para;</a></h2>
+<h3 id="layout-principles">Layout Principles<a class="headerlink" href="#layout-principles" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Input caps close to IC</strong>: Minimize parasitic inductance</li>
+<li><strong>Short, wide traces</strong>: Keep high-current paths as short and wide as possible</li>
+<li><strong>Copper pour area</strong>: Copper pour under power MOSFETs and inductors for heat dissipation</li>
+<li><strong>Separate signal and power</strong>: Analog signals away from switching nodes</li>
+<li><strong>Grounding strategy</strong>: Star grounding or ground plane partitioning</li>
+</ol>
+<h3 id="trace-current-capacity-estimate-1-oz-copper-outer-layer">Trace Current Capacity Estimate (1 oz copper, outer layer)<a class="headerlink" href="#trace-current-capacity-estimate-1-oz-copper-outer-layer" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Trace Width</th>
+<th>10°C Rise</th>
+<th>20°C Rise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.5 mm</td>
+<td>0.7A</td>
+<td>1.0A</td>
+</tr>
+<tr>
+<td>1.0 mm</td>
+<td>1.2A</td>
+<td>1.7A</td>
+</tr>
+<tr>
+<td>2.0 mm</td>
+<td>2.0A</td>
+<td>2.8A</td>
+</tr>
+<tr>
+<td>5.0 mm</td>
+<td>4.0A</td>
+<td>5.5A</td>
+</tr>
+</tbody>
+</table>
+<p>For high current (&gt;5A), use multi-layer stacking or external wires.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Texas Instruments: DC-DC Converter Design Guide</li>
+<li>Analog Devices: LT Journal of Analog Innovation</li>
+<li>"Switching Power Supply Design" (Pressman)</li>
+<li>EEVBlog: Power Supply Design Tutorials</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

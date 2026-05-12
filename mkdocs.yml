@@ -1,0 +1,94 @@
+site_name: Engineering Notes — 计算机工程与机器人工程
+site_url: https://jeffliulab.github.io/eng-notes/
+repo_url: https://github.com/jeffliulab/eng-notes
+repo_name: jeffliulab/eng-notes
+
+theme:
+  name: material
+  language: zh
+  palette:
+    - scheme: default
+      primary: deep orange
+      accent: deep orange
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep orange
+      accent: deep orange
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: suffix
+      languages:
+        - locale: zh
+          default: true
+          name: 中文
+          build: true
+        - locale: en
+          name: English
+          build: true
+
+extra_css:
+  - site_extra_styles/stylesheets/extra.css
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.snippets:
+      base_path:
+        - docs
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - 首页: index.md
+  - 工程基础:
+    - 00_Foundations/index.md
+  - 计算机工程:
+    - 02_Computer_Engineering/index.md
+  - 电气工程:
+    - 01_Electrical_Engineering/index.md
+  - 机械工程:
+    - 04_Mechanical_Engineering/index.md
+  - 嵌入式系统:
+    - 03_Embedded_Systems/index.md
+  - 传感器与感知:
+    - 05_Sensors_Perception/index.md
+  - 执行器与电机:
+    - 06_Actuators_Motors/index.md
+  - 电源与能源:
+    - 07_Power_Energy/index.md
+  - 通信与网络:
+    - 08_Communication_Networks/index.md
+  - 控制与人机交互:
+    - 09_Control_HMI/index.md
+  - 机器人集成:
+    - 10_Robot_Integration/index.md
+  - 制造与前沿:
+    - 11_Manufacturing_Frontiers/index.md

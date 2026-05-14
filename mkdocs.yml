@@ -70,6 +70,8 @@ nav:
   - 首页: index.md
   - 工程基础:
     - 00_Foundations/index.md
+    - 信号处理: 00_Foundations/Signal_Processing.md
+    - 控制理论: 00_Foundations/Control_Theory.md
   - 计算机工程:
     - 02_Computer_Engineering/index.md
   - 电气工程:
@@ -78,6 +80,7 @@ nav:
     - 04_Mechanical_Engineering/index.md
   - 嵌入式系统:
     - 03_Embedded_Systems/index.md
+    - RTOS 综述: 03_Embedded_Systems/RTOS_Overview.md
   - 传感器与感知:
     - 05_Sensors_Perception/index.md
   - 执行器与电机:

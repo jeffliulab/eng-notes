@@ -96,6 +96,7 @@ nav:
     - RTOS 综述: 03_Embedded_Systems/RTOS_Overview.md
     - ARM Cortex-M: 03_Embedded_Systems/ARM_Cortex_M.md
     - FreeRTOS: 03_Embedded_Systems/FreeRTOS.md
+    - Zephyr RTOS: 03_Embedded_Systems/Zephyr_RTOS.md
   - 传感器与感知:
     - 05_Sensors_Perception/index.md
   - 执行器与电机:
@@ -115,6 +116,7 @@ nav:
   - 控制与人机交互:
     - 09_Control_HMI/index.md
     - GUI Frameworks: 09_Control_HMI/GUI_Frameworks.md
+    - PID 控制器与调参: 09_Control_HMI/PID_Tuning.md
   - 机器人集成:
     - 10_Robot_Integration/index.md
     - ROS 2 基础: 10_Robot_Integration/ROS2_Basics.md

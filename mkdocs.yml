@@ -86,6 +86,7 @@ nav:
     - 02_Computer_Engineering/index.md
     - RISC-V: 02_Computer_Engineering/RISC_V.md
     - FPGA: 02_Computer_Engineering/FPGA.md
+    - GPU 架构: 02_Computer_Engineering/GPU_Architecture.md
   - 机械工程:
     - 04_Mechanical_Engineering/index.md
     - 轴承: 04_Mechanical_Engineering/Bearings.md
@@ -101,6 +102,7 @@ nav:
     - 06_Actuators_Motors/index.md
     - 步进电机: 06_Actuators_Motors/Stepper_Motor.md
     - 伺服电机: 06_Actuators_Motors/Servo_Motor.md
+    - BLDC 电机: 06_Actuators_Motors/BLDC_Motor.md
   - 电源与能源:
     - 07_Power_Energy/index.md
     - 电池管理系统 BMS: 07_Power_Energy/BMS_Battery_Management.md
@@ -117,6 +119,7 @@ nav:
     - 10_Robot_Integration/index.md
     - ROS 2 基础: 10_Robot_Integration/ROS2_Basics.md
     - SLAM 基础: 10_Robot_Integration/SLAM_Basics.md
+    - MoveIt 2: 10_Robot_Integration/MoveIt2.md
   - 制造与前沿:
     - 11_Manufacturing_Frontiers/index.md
     - 3D 打印: 11_Manufacturing_Frontiers/3D_Printing.md

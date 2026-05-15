@@ -78,6 +78,8 @@ nav:
   - 电气工程:
     - 01_Electrical_Engineering/index.md
     - 运算放大器: 01_Electrical_Engineering/Op_Amp.md
+    - ADC / DAC: 01_Electrical_Engineering/ADC_DAC.md
+    - 电力电子: 01_Electrical_Engineering/Power_Electronics.md
   - 计算机工程:
     - 02_Computer_Engineering/index.md
     - RISC-V: 02_Computer_Engineering/RISC_V.md
@@ -98,6 +100,7 @@ nav:
     - 电池管理系统 BMS: 07_Power_Energy/BMS_Battery_Management.md
   - 通信与网络:
     - 08_Communication_Networks/index.md
+    - USB: 08_Communication_Networks/USB.md
   - 控制与人机交互:
     - 09_Control_HMI/index.md
   - 机器人集成:
@@ -106,3 +109,4 @@ nav:
   - 制造与前沿:
     - 11_Manufacturing_Frontiers/index.md
     - 3D 打印: 11_Manufacturing_Frontiers/3D_Printing.md
+    - CNC: 11_Manufacturing_Frontiers/CNC.md

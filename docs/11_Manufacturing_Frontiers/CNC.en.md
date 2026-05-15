@@ -200,7 +200,6 @@ Cheap CNC ball screw backlash → precision loss.
 
 ## 11. Related Concepts
 
-- **Same section**: [3D Printing](3D_Printing.en.md), [Industry 4](Industry_4.en.md)
 - **CAD**: [CAD Tools](../04_Mechanical_Engineering/CAD工具.en.md)
 - **Materials**: [Materials Science](../00_Foundations/Materials_Science.en.md)
 

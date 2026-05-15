@@ -202,7 +202,6 @@ def generate_pocket_gcode(center, size, depth, tool_dia=3, stepdown=0.5, feed=50
 
 ## 11. Related Concepts
 
-- **同节**:[3D 打印](3D_Printing.md)、[Industry 4](Industry_4.md)
 - **CAD**:[CAD 工具](../04_Mechanical_Engineering/CAD工具.md)
 - **材料**:[Materials Science](../00_Foundations/Materials_Science.md)
 

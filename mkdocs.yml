@@ -80,6 +80,8 @@ nav:
     - 运算放大器: 01_Electrical_Engineering/Op_Amp.md
   - 计算机工程:
     - 02_Computer_Engineering/index.md
+    - RISC-V: 02_Computer_Engineering/RISC_V.md
+    - FPGA: 02_Computer_Engineering/FPGA.md
   - 机械工程:
     - 04_Mechanical_Engineering/index.md
   - 嵌入式系统:
@@ -90,14 +92,17 @@ nav:
     - 05_Sensors_Perception/index.md
   - 执行器与电机:
     - 06_Actuators_Motors/index.md
+    - 步进电机: 06_Actuators_Motors/Stepper_Motor.md
   - 电源与能源:
     - 07_Power_Energy/index.md
+    - 电池管理系统 BMS: 07_Power_Energy/BMS_Battery_Management.md
   - 通信与网络:
     - 08_Communication_Networks/index.md
   - 控制与人机交互:
     - 09_Control_HMI/index.md
   - 机器人集成:
     - 10_Robot_Integration/index.md
+    - ROS 2 基础: 10_Robot_Integration/ROS2_Basics.md
   - 制造与前沿:
     - 11_Manufacturing_Frontiers/index.md
     - 3D 打印: 11_Manufacturing_Frontiers/3D_Printing.md

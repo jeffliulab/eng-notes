@@ -76,6 +76,7 @@ nav:
     - 热力学: 00_Foundations/Thermodynamics.md
     - 材料科学: 00_Foundations/Materials_Science.md
     - 流体力学: 00_Foundations/Fluid_Mechanics.md
+    - PDE 数值方法: 00_Foundations/PDE_Methods.md
   - 电气工程:
     - 01_Electrical_Engineering/index.md
     - 运算放大器: 01_Electrical_Engineering/Op_Amp.md
@@ -99,6 +100,7 @@ nav:
     - Zephyr RTOS: 03_Embedded_Systems/Zephyr_RTOS.md
   - 传感器与感知:
     - 05_Sensors_Perception/index.md
+    - IMU 详解: 05_Sensors_Perception/IMU_Detailed.md
   - 执行器与电机:
     - 06_Actuators_Motors/index.md
     - 步进电机: 06_Actuators_Motors/Stepper_Motor.md

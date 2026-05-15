@@ -72,15 +72,20 @@ nav:
     - 00_Foundations/index.md
     - 信号处理: 00_Foundations/Signal_Processing.md
     - 控制理论: 00_Foundations/Control_Theory.md
-  - 计算机工程:
-    - 02_Computer_Engineering/index.md
+    - 线性代数: 00_Foundations/Linear_Algebra.md
+    - 热力学: 00_Foundations/Thermodynamics.md
+    - 材料科学: 00_Foundations/Materials_Science.md
   - 电气工程:
     - 01_Electrical_Engineering/index.md
+    - 运算放大器: 01_Electrical_Engineering/Op_Amp.md
+  - 计算机工程:
+    - 02_Computer_Engineering/index.md
   - 机械工程:
     - 04_Mechanical_Engineering/index.md
   - 嵌入式系统:
     - 03_Embedded_Systems/index.md
     - RTOS 综述: 03_Embedded_Systems/RTOS_Overview.md
+    - ARM Cortex-M: 03_Embedded_Systems/ARM_Cortex_M.md
   - 传感器与感知:
     - 05_Sensors_Perception/index.md
   - 执行器与电机:
@@ -95,3 +100,4 @@ nav:
     - 10_Robot_Integration/index.md
   - 制造与前沿:
     - 11_Manufacturing_Frontiers/index.md
+    - 3D 打印: 11_Manufacturing_Frontiers/3D_Printing.md

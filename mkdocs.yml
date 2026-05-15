@@ -105,6 +105,7 @@ nav:
     - USB: 08_Communication_Networks/USB.md
   - 控制与人机交互:
     - 09_Control_HMI/index.md
+    - GUI Frameworks: 09_Control_HMI/GUI_Frameworks.md
   - 机器人集成:
     - 10_Robot_Integration/index.md
     - ROS 2 基础: 10_Robot_Integration/ROS2_Basics.md

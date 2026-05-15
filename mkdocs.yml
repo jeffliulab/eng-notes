@@ -86,6 +86,7 @@ nav:
     - FPGA: 02_Computer_Engineering/FPGA.md
   - 机械工程:
     - 04_Mechanical_Engineering/index.md
+    - 轴承: 04_Mechanical_Engineering/Bearings.md
   - 嵌入式系统:
     - 03_Embedded_Systems/index.md
     - RTOS 综述: 03_Embedded_Systems/RTOS_Overview.md
@@ -95,6 +96,7 @@ nav:
   - 执行器与电机:
     - 06_Actuators_Motors/index.md
     - 步进电机: 06_Actuators_Motors/Stepper_Motor.md
+    - 伺服电机: 06_Actuators_Motors/Servo_Motor.md
   - 电源与能源:
     - 07_Power_Energy/index.md
     - 电池管理系统 BMS: 07_Power_Energy/BMS_Battery_Management.md
@@ -106,7 +108,9 @@ nav:
   - 机器人集成:
     - 10_Robot_Integration/index.md
     - ROS 2 基础: 10_Robot_Integration/ROS2_Basics.md
+    - SLAM 基础: 10_Robot_Integration/SLAM_Basics.md
   - 制造与前沿:
     - 11_Manufacturing_Frontiers/index.md
     - 3D 打印: 11_Manufacturing_Frontiers/3D_Printing.md
     - CNC: 11_Manufacturing_Frontiers/CNC.md
+    - Industry 4.0: 11_Manufacturing_Frontiers/Industry_4.md

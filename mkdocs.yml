@@ -75,11 +75,13 @@ nav:
     - 线性代数: 00_Foundations/Linear_Algebra.md
     - 热力学: 00_Foundations/Thermodynamics.md
     - 材料科学: 00_Foundations/Materials_Science.md
+    - 流体力学: 00_Foundations/Fluid_Mechanics.md
   - 电气工程:
     - 01_Electrical_Engineering/index.md
     - 运算放大器: 01_Electrical_Engineering/Op_Amp.md
     - ADC / DAC: 01_Electrical_Engineering/ADC_DAC.md
     - 电力电子: 01_Electrical_Engineering/Power_Electronics.md
+    - PCB 设计: 01_Electrical_Engineering/PCB_Design.md
   - 计算机工程:
     - 02_Computer_Engineering/index.md
     - RISC-V: 02_Computer_Engineering/RISC_V.md
@@ -120,3 +122,4 @@ nav:
     - 3D 打印: 11_Manufacturing_Frontiers/3D_Printing.md
     - CNC: 11_Manufacturing_Frontiers/CNC.md
     - Industry 4.0: 11_Manufacturing_Frontiers/Industry_4.md
+    - 制造业机器人: 11_Manufacturing_Frontiers/Robotics_in_Manufacturing.md

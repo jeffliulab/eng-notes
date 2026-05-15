@@ -87,10 +87,12 @@ nav:
   - 机械工程:
     - 04_Mechanical_Engineering/index.md
     - 轴承: 04_Mechanical_Engineering/Bearings.md
+    - 有限元分析: 04_Mechanical_Engineering/Finite_Element_Analysis.md
   - 嵌入式系统:
     - 03_Embedded_Systems/index.md
     - RTOS 综述: 03_Embedded_Systems/RTOS_Overview.md
     - ARM Cortex-M: 03_Embedded_Systems/ARM_Cortex_M.md
+    - FreeRTOS: 03_Embedded_Systems/FreeRTOS.md
   - 传感器与感知:
     - 05_Sensors_Perception/index.md
   - 执行器与电机:
@@ -100,9 +102,12 @@ nav:
   - 电源与能源:
     - 07_Power_Energy/index.md
     - 电池管理系统 BMS: 07_Power_Energy/BMS_Battery_Management.md
+    - 无线充电: 07_Power_Energy/Wireless_Charging.md
   - 通信与网络:
     - 08_Communication_Networks/index.md
     - USB: 08_Communication_Networks/USB.md
+    - Modbus: 08_Communication_Networks/Modbus.md
+    - MQTT: 08_Communication_Networks/MQTT.md
   - 控制与人机交互:
     - 09_Control_HMI/index.md
     - GUI Frameworks: 09_Control_HMI/GUI_Frameworks.md
